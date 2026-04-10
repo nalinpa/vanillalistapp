@@ -4,7 +4,7 @@ import { Stack, router, useLocalSearchParams } from "expo-router";
 
 import { FlashList } from "@shopify/flash-list";
 
-import { goLocation } from "@/lib/routes";
+import { go__Location__ } from "@/lib/routes";
 import { Screen } from "@/components/ui/Screen";
 import { LoadingState } from "@/components/ui/LoadingState";
 import { ErrorCard } from "@/components/ui/ErrorCard";
@@ -13,27 +13,27 @@ import { ReviewListItem } from "@/components/reviews/ReviewListItem";
 import { ReviewsHeader } from "@/components/reviews/ReviewsHeader";
 import { ReviewsEmptyStateCard } from "@/components/reviews/ReviewsEmptyState";
 
-import { usePublicLocationReviews } from "@/lib/hooks/usePublicLocationReviews";
-import { useLocationReviewsSummary } from "@/lib/hooks/useLocationReviewsSummary";
+import { usePublic__Location__Reviews } from "@/lib/hooks/usePublic__Location__Reviews";
+import { use__Location__ReviewsSummary } from "@/lib/hooks/use__Location__ReviewsSummary";
 import { useBlockedUsers } from "@/lib/hooks/useModeration";
 import { space } from "@/lib/ui/tokens";
 
-export default function LocationReviewsPage() {
-  const { locationId, locationName } = useLocalSearchParams<{
-    locationId: string;
-    locationName?: string;
+export default function __Location__ReviewsPage() {
+  const { __location__Id, __location__Name } = useLocalSearchParams<{
+    __location__Id: string;
+    __location__Name?: string;
   }>();
-  const id = String(locationId);
+  const id = String(__location__Id);
 
-  const title = locationName?.trim() || "__ENTITY_SINGULAR__";
+  const title = __location__Name?.trim() || "__ENTITY_SINGULAR__";
 
   const goBack = useCallback(() => {
     if (router.canGoBack()) router.back();
-    else goLocation(id);
+    else go__Location__(id);
   }, [id]);
 
-  const { loading, err, reviews, refresh } = usePublicLocationReviews(id);
-  const { avgRating, ratingCount } = useLocationReviewsSummary(id);
+  const { loading, err, reviews, refresh } = usePublic__Location__Reviews(id);
+  const { avgRating, ratingCount } = use__Location__ReviewsSummary(id);
 
   const { data: blockedUids = [] } = useBlockedUsers();
 

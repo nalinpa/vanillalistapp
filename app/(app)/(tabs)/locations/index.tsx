@@ -8,18 +8,18 @@ import { CardShell } from "@/components/ui/CardShell";
 import { Stack } from "@/components/ui/Stack";
 import { AppText } from "@/components/ui/AppText";
 
-import { goLocation, goAccountHome } from "@/lib/routes";
-import { useSortedLocationRows } from "@/lib/hooks/useSortedLocationRows";
+import { go__Location__, goAccountHome } from "@/lib/routes";
+import { useSorted__Location__Rows } from "@/lib/hooks/useSorted__Location__Rows";
 import { useSession } from "@/lib/providers/SessionProvider";
 import { useLocation } from "@/lib/providers/LocationProvider";
 import { useLocationStore, useFiltersStore } from "@/lib/store/index";
 import { useAppData } from "@/lib/providers/DataProvider";
 
-import { LocationsListView } from "@/components/location/list/LocationsListView";
-import { LocationsListHeader } from "@/components/location/list/LocationListHeader";
-import { LocationFiltersCard } from "@/components/location/list/LocationFiltersCard";
+import { __Locations__ListView } from "@/components/__location__/list/__Locations__ListView";
+import { ____Location__s__ListHeader } from "@/components/__location__/list/__Location__ListHeader";
+import { __Location__FiltersCard } from "@/components/__location__/list/__Location__FiltersCard";
 
-export default function LocationListPage() {
+export default function __Location__ListPage() {
   const { session } = useSession();
   const isGuest = session.status === "guest";
 
@@ -27,9 +27,9 @@ export default function LocationListPage() {
   const { location: liveLoc, errorMsg: locErr } = useLocation();
   const locStatus = locErr ? "denied" : liveLoc ? "granted" : "unknown";
 
-  const { locationsData, completionsData } = useAppData();
-  const { locations, loading: locationsLoading, err: locationsErr } = locationsData;
-  const { completedLocationIds, loading: compLoading } = completionsData;
+  const { __locations__Data, completionsData } = useAppData();
+  const { __locations__, loading: __locations__Loading, err: __locations__Err } = __locations__Data;
+  const { completed__Location__Ids, loading: compLoading } = completionsData;
 
   const [lockedLoc, setLockedLoc] = useState(() => useLocationStore.getState().location);
   const { filters, setFilters } = useFiltersStore();
@@ -49,22 +49,22 @@ export default function LocationListPage() {
   };
 
   const filteredRows = useMemo(() => {
-    const active = locations.filter((c) => !!c.active);
+    const active = __locations__.filter((c) => !!c.active);
     let list = active;
 
     if (!isGuest) {
-      if (filters.hideCompleted) list = list.filter((c) => !completedLocationIds.has(c.id));
+      if (filters.hideCompleted) list = list.filter((c) => !completed__Location__Ids.has(c.id));
       if (filters.region !== "all")
         list = list.filter((c) => c.region === filters.region);
       if (filters.category !== "all")
         list = list.filter((c) => c.category === filters.category);
     }
     return list;
-  }, [locations, filters, completedLocationIds, isGuest]);
+  }, [__locations__, filters, completed__Location__Ids, isGuest]);
 
-  const rows = useSortedLocationRows(filteredRows, lockedLoc);
+  const rows = useSorted__Location__Rows(filteredRows, lockedLoc);
 
-  if (locationsLoading || session.status === "loading") {
+  if (__locations__Loading || session.status === "loading") {
     return (
       <Screen>
         <LoadingState label="Finding __ENTITY_PLURAL__..." />
@@ -72,10 +72,10 @@ export default function LocationListPage() {
     );
   }
 
-  if (locationsErr) {
+  if (__locations__Err) {
     return (
       <Screen>
-        <ErrorCard title="Connection Issue" message={locationsErr} />
+        <ErrorCard title="Connection Issue" message={__locations__Err} />
       </Screen>
     );
   }
@@ -83,7 +83,7 @@ export default function LocationListPage() {
   const header = (
     <Stack gap="md" style={styles.headerStack}>
       <View style={styles.paddedSection}>
-        <LocationsListHeader
+        <__Locations__ListHeader
           status={locStatus}
           hasLoc={!!lockedLoc}
           locErr={locErr || ""}
@@ -104,10 +104,10 @@ export default function LocationListPage() {
         </View>
       ) : (
         <View style={styles.fullWidth}>
-          <LocationFiltersCard
+          <__Location__FiltersCard
             value={filters}
             onChange={setFilters}
-            completedCount={completedLocationIds.size}
+            completedCount={completed__Location__Ids.size}
             completionsLoading={compLoading}
             shownCount={rows.length}
           />
@@ -133,11 +133,11 @@ export default function LocationListPage() {
           </View>
         </View>
       ) : (
-        <LocationsListView
+        <__Locations__ListView
           rows={rows}
           header={header}
-          onPressLocation={goLocation}
-          completedIds={completedLocationIds}
+          onPress__Location__={go__Location__}
+          completedIds={completed__Location__Ids}
           hideCompleted={filters.hideCompleted}
         />
       )}

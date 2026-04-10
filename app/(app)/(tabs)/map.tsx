@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import { useKeepAwake } from "expo-keep-awake";
 import BottomSheet from "@gorhom/bottom-sheet";
 
-import { goLocation } from "@/lib/routes";
+import { go__Location__ } from "@/lib/routes";
 import { Screen } from "@/components/ui/Screen";
 import { CardShell } from "@/components/ui/CardShell";
 import { LoadingState } from "@/components/ui/LoadingState";
@@ -19,16 +19,16 @@ import { useGPSGate } from "@/lib/hooks/useGPSGate";
 import { useSession } from "@/lib/providers/SessionProvider";
 import { useAppData } from "@/lib/providers/DataProvider";
 
-import { LocationsMapView, initialRegionFrom } from "@/components/map/LocationsMapView";
+import { __Locations__MapView, initialRegionFrom } from "@/components/map/__Locations__MapView";
 import { MapOverlayCard } from "@/components/map/MapOverlay";
 import { space } from "@/lib/ui/tokens";
 import { useLocationStore, useMapStore, useTrackingStore } from "@/lib/store/index";
 
 export default function MapScreen() {
   const { session } = useSession();
-  const { locationsData, completionsData } = useAppData();
-  const { locations, loading, err } = locationsData;
-  const completedIds = completionsData.completedLocationIds;
+  const { __locations__Data, completionsData } = useAppData();
+  const { __locations__, loading, err } = __locations__Data;
+  const completedIds = completionsData.completed__Location__Ids;
 
   const { location: loc, errorMsg: providerErr } = useLocation();
 
@@ -39,9 +39,9 @@ export default function MapScreen() {
   const locErr = providerErr || manualErr;
   const locStatus = locErr ? "denied" : loc ? "granted" : "unknown";
 
-  const { selectedLocationId, setSelectedLocationId } = useMapStore();
+  const { selected__Location__Id, setSelected__Location__Id } = useMapStore();
 
-  const nearestUncompleted = useNearestUncompleted(locations, completedIds, loc);
+  const nearestUncompleted = useNearestUncompleted(__locations__, completedIds, loc);
   const { targetId, isTracking } = useTrackingStore();
   useKeepAwake();
 
@@ -49,55 +49,55 @@ export default function MapScreen() {
 
   useEffect(() => {
     // Only auto-select if nothing is currently selected
-    if (!selectedLocationId) {
+    if (!selected__Location__Id) {
       if (isTracking && targetId) {
-        setSelectedLocationId(targetId);
-      } else if (nearestUncompleted?.location?.id) {
-        setSelectedLocationId(nearestUncompleted.location.id);
+        setSelected__Location__Id(targetId);
+      } else if (nearestUncompleted?.__location__?.id) {
+        setSelected__Location__Id(nearestUncompleted.__location__.id);
       }
     }
   }, [
-    selectedLocationId,
+    selected__Location__Id,
     isTracking,
     targetId,
-    nearestUncompleted?.location?.id,
-    setSelectedLocationId,
+    nearestUncompleted?.__location__?.id,
+    setSelected__Location__Id,
   ]);
 
-  const mapLocations = useMemo(() => {
-    return locations.map((c) => ({
+  const map__Locations__ = useMemo(() => {
+    return __locations__.map((c) => ({
       id: c.id,
       name: c.name,
       lat: c.lat,
       lng: c.lng,
       radiusMeters: c.radiusMeters,
     }));
-  }, [locations]);
+  }, [__locations__]);
 
-  const selectedLocation = useMemo(() => {
-    return locations.find((c) => c.id === selectedLocationId) ?? null;
-  }, [locations, selectedLocationId]);
+  const selected__Location__ = useMemo(() => {
+    return __locations__.find((c) => c.id === selectedLocationId) ?? null;
+  }, [__locations__, selectedLocationId]);
 
   const gate = useGPSGate(selectedLocation, loc);
 
   const lat = loc?.coords.latitude;
   const lng = loc?.coords.longitude;
-  const hasMapLocations = mapLocations.length > 0;
+  const hasMap__Locations__ = map__Locations__.length > 0;
 
   const initialRegion = useMemo(() => {
-    if (loading || !hasMapLocations) return null;
+    if (loading || !hasMap__Locations__) return null;
 
-    return initialRegionFrom(lat ?? null, lng ?? null, mapLocations);
-  }, [loading, hasMapLocations, lat, lng, mapLocations]);
+    return initialRegionFrom(lat ?? null, lng ?? null, map__Locations__);
+  }, [loading, hasMap__Locations__, lat, lng, map__Locations__]);
 
-  const handleLocationPress = useCallback(
+  const handle__Location__Press = useCallback(
     (id: string) => {
       Haptics.selectionAsync();
-      setSelectedLocationId(id);
+      setSelected__Location__Id(id);
       // Snap the sheet up so they can read the MapOverlayCard clearly
       bottomSheetRef.current?.snapToIndex(1);
     },
-    [setSelectedLocationId],
+    [setSelected__Location__Id],
   );
 
   if (session.status === "loading" || loading) {
@@ -116,21 +116,21 @@ export default function MapScreen() {
     );
   }
 
-  const activeLocation = selectedLocation ?? nearestUncompleted?.location ?? null;
+  const active__Location__ = selected__Location__ ?? nearestUncompleted?.__location__ ?? null;
   const overlayDistance =
-    selectedLocation && gate ? gate.distanceMeters : nearestUncompleted?.distanceMeters;
+    selected__Location__ && gate ? gate.distanceMeters : nearestUncompleted?.distanceMeters;
 
   return (
     <Screen padded={false}>
       <Stack.Screen options={{ title: "Explore", headerTransparent: true }} />
 
       <View style={styles.flex1}>
-        <LocationsMapView
-          locations={mapLocations}
+        <__Locations__MapView
+          __locations__={map__Locations__}
           completedIds={completedIds}
           initialRegion={initialRegion!}
-          selectedLocationId={selectedLocationId}
-          onPressLocation={handleLocationPress}
+          selected__Location__Id={selected__Location__Id}
+          onPress__Location__={handle__Location__Press}
         />
 
         {locErr && (
@@ -143,17 +143,17 @@ export default function MapScreen() {
           </View>
         )}
 
-        {activeLocation && (
+        {active__Location__ && (
           <MapOverlayCard
-            id={activeLocation.id}
-            title={activeLocation.name}
+            id={active__Location__.id}
+            title={active__Location__.name}
             distanceMeters={overlayDistance ?? 0}
             onOpen={() => goLocation(activeLocation.id)}
             locStatus={locStatus}
             hasLoc={!!loc}
             userLocation={userLocation}
             refreshingGPS={isRefreshing}
-            completed={completedIds.has(activeLocation.id)}
+            completed={completedIds.has(active__Location__.id)}
           />
         )}
       </View>

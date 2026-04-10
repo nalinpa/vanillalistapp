@@ -1,27 +1,27 @@
 import { useMemo } from "react";
 import type { LocationObject } from "expo-location";
 
-import type { Location } from "@/lib/models";
+import type { __Location__ } from "@/lib/models";
 import { nearestCheckpoint } from "@/lib/checkpoints";
 
 export type NearestUncompletedResult = {
-  location: Location;
+  ____location____: __Location__;
   distanceMeters: number | null;
 };
 
 export function useNearestUncompleted(
-  locations: Location[],
-  completedLocationIds: Set<string>,
+  __locations__: __Location__[],
+  completed__Location__Ids: Set<string>,
   userLoc: LocationObject | null,
 ): NearestUncompletedResult | null {
   return useMemo(() => {
-    const uncompleted = locations.filter((loc) => !completedLocationIds.has(loc.id));
+    const uncompleted = __locations__.filter((loc) => !completed__Location__Ids.has(loc.id));
     if (uncompleted.length === 0) return null;
 
     // Stable fallback when no device location: alphabetically first
     if (!userLoc) {
       const sorted = [...uncompleted].sort((a, b) => a.name.localeCompare(b.name));
-      return { location: sorted[0], distanceMeters: null };
+      return { __location__: sorted[0], distanceMeters: null };
     }
 
     const { latitude, longitude } = userLoc.coords;
@@ -40,6 +40,6 @@ export function useNearestUncompleted(
       }
     }
 
-    return { location: best, distanceMeters: bestDist };
-  }, [locations, completedLocationIds, userLoc]);
+    return { __location__: best, distanceMeters: bestDist };
+  }, [__locations__, completed__Location__Ids, userLoc]);
 }

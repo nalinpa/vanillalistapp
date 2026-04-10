@@ -1,24 +1,24 @@
 import { router, Href } from "expo-router";
 
 /**
- * Locations
+ * __Locations__
  */
-export function goLocationsHome() {
-  router.replace("/(tabs)/locations");
+export function go__Locations__Home() {
+  router.replace("/(tabs)/__locations__");
 }
 
-export function goLocationsList() {
-  router.replace("/(app)/(tabs)/locations/index");
+export function go__Locations__List() {
+  router.replace("/(app)/(tabs)/__locations__/index");
 }
 
-export function goLocation(locationId: string) {
-  router.push(`/(tabs)/locations/${locationId}` as Href);
+export function go__Location__(locationId: string) {
+  router.push(`/(tabs)/__locations__/${locationId}` as Href);
 }
 
-export function goLocationReviews(locationId: string, locationName?: string) {
+export function go__Location__Reviews(__location__Id: string, __location__Name?: string) {
   router.push({
-    pathname: `/(tabs)/locations/${locationId}/reviews` as any,
-    params: locationName ? { locationName } : {},
+    pathname: `/(tabs)/__locations__/${__location__Id}/reviews` as any,
+    params: __location__Name ? { __location__Name } : {},
   });
 }
 

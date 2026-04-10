@@ -10,11 +10,11 @@ import {
 
 import { db } from "@/lib/firebase";
 import { COL } from "@/lib/constants/firestore";
-import type { Location } from "@/lib/models";
+import type { __Location__ } from "@/lib/models";
 
-async function fetchLocations(): Promise<Location[]> {
+async function fetch__Locations__(): Promise<__Location__[]> {
   const q = query(
-    collection(db, COL.locations),
+    collection(db, COL.__locations__),
     where("active", "==", true),
     orderBy("name", "asc"),
   );
@@ -27,18 +27,18 @@ async function fetchLocations(): Promise<Location[]> {
     return {
       id: d.id,
       ...val,
-    } as Location;
+    } as __Location__;
   });
 }
 
-export function useLocations() {
+export function use__Locations__() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["locations"],
-    queryFn: fetchLocations,
+    queryKey: ["__locations__"],
+    queryFn: fetch__Locations__,
   });
 
   return {
-    locations: data || [],
+    __locations__: data || [],
     loading: isLoading,
     err: error instanceof Error ? error.message : "",
   };

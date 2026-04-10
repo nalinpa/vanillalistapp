@@ -13,18 +13,18 @@ import { SignalMeter } from "../../map/SignalMeter";
 
 import { useTrackingStore } from "../../../lib/store";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
-import { useLocationData } from "@/lib/hooks/useLocationData";
+import { useLocation } from "@/lib/hooks/useLocation";
 
 interface StatusCardProps {
-  locationId: string;
+  __location__Id: string;
   title: string;
   completed: boolean;
   onCheckIn: () => void;
-  loc: LocationObject | null;
+  loc: __Location__Object | null;
 }
 
 export function StatusCard({
-  locationId,
+  __location__Id,
   title,
   completed,
   onCheckIn,
@@ -36,11 +36,11 @@ export function StatusCard({
   const stopTracking = useTrackingStore((state) => state.stopTracking);
   const targetName = useTrackingStore((state) => state.targetName);
 
-  const isTargetingThis = isTracking && !!targetId && targetId === locationId;
-  const isTrackingSomethingElse = isTracking && targetId !== locationId;
+  const isTargetingThis = isTracking && !!targetId && targetId === __location__Id;
+  const isTrackingSomethingElse = isTracking && targetId !== __location__Id;
 
-  const { locationData } = useLocationData(locationId);
-  const gate = useGPSGate(locationData, loc);
+  const { __location__Data } = use__Location__Data(__location__Id);
+  const gate = useGPSGate(__location__Data, loc);
 
   const animatedButtonStyle = {
     opacity: isTrackingSomethingElse ? 0.8 : 1,
@@ -56,12 +56,12 @@ export function StatusCard({
           {
             text: "Switch",
             style: "destructive",
-            onPress: () => startTracking(locationId, title),
+            onPress: () => startTracking(__location__Id, title),
           },
         ],
       );
     } else {
-      startTracking(locationId, title);
+      startTracking(__location__Id, title);
     }
   };
 

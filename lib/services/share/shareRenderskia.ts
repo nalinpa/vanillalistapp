@@ -3,7 +3,7 @@ import { Asset } from "expo-asset";
 import type { SkFont, SkPaint, Skia as SkiaType } from "@shopify/react-native-skia";
 import * as Sentry from "@sentry/react-native";
 
-import type { ShareLocationPayload } from "./types";
+import type { Share__Location__Payload } from "./types";
 // Make sure to rename SURF_GREEN to BRAND_COLORS (or similar) in your shareTheme.ts
 import { BRAND_COLORS } from "./shareTheme"; 
 
@@ -14,7 +14,7 @@ import { BRAND_COLORS } from "./shareTheme";
  * IMPORTANT: Capability gating (32-bit Android, etc.) should happen in shareService.
  */
 export async function renderShareCardPngAsync(
-  payload: ShareLocationPayload,
+  payload: Share__Location__Payload,
 ): Promise<string | null> {
   try {
     const SkiaMod = await import("@shopify/react-native-skia");
@@ -126,11 +126,11 @@ export async function renderShareCardPngAsync(
     const contentY = cardY + pad;
     const contentW = cardW - pad * 2;
 
-    // Location name (2 lines max)
-    const locationName = (payload.locationName || "").trim() || "Unknown Location";
+    // __Location__ name (2 lines max)
+    const __location__Name = (payload.__location__Name || "").trim() || "Unknown __Location__";
     const titleTopY = contentY + 150;
 
-    const [l1, l2] = wrapTwoLines(locationName, fontTitle, textDark, contentW);
+    const [l1, l2] = wrapTwoLines(__location__Name, fontTitle, textDark, contentW);
     const lineH = 90;
 
     canvas.drawText(l1, contentX, titleTopY, textDark, fontTitle);
@@ -209,7 +209,7 @@ export async function renderShareCardPngAsync(
 
     const base64 = uint8ToBase64(bytes);
 
-    const uri = `${(FileSystem as any).cacheDirectory}location-share-${payload.locationId}-${Date.now()}.png`;
+    const uri = `${(FileSystem as any).cacheDirectory}__location__-share-${payload.__location__Id}-${Date.now()}.png`;
     await FileSystem.writeAsStringAsync(uri, base64, { encoding: "base64" });
 
     return uri;

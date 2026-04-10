@@ -23,9 +23,9 @@ function toMs(v: any): number {
 }
 
 const defaultState = {
-  completedLocationIds: new Set<string>(),
-  pendingLocationIds: new Set<string>(),
-  completedAtByLocationId: {} as Record<string, number>,
+  completed__Location__Ids: new Set<string>(),
+  pending__Location__Ids: new Set<string>(),
+  completedAtBy__Location__Id: {} as Record<string, number>,
   completions: [] as any[],
 };
 
@@ -40,37 +40,37 @@ export function useMyCompletions() {
   useEffect(() => {
     if (!uid) return;
 
-    // Make sure COL.locationCompletions exists in your constants
-    const q = query(collection(db, COL.locationCompletions), where("userId", "==", uid));
+    // Make sure COL.__location__Completions exists in your constants
+    const q = query(collection(db, COL.__location__Completions), where("userId", "==", uid));
 
     const unsubscribe = onSnapshot(
       q,
       { includeMetadataChanges: true },
       (snap) => {
-        const completedLocationIds = new Set<string>();
-        const pendingLocationIds = new Set<string>();
-        const completedAtByLocationId: Record<string, number> = {};
+        const completed__Location__Ids = new Set<string>();
+        const pending__Location__Ids = new Set<string>();
+        const completedAtBy__Location__Id: Record<string, number> = {};
         const completions: any[] = [];
 
         snap.forEach((doc: FirebaseFirestoreTypes.QueryDocumentSnapshot) => {
           const d = doc.data() as any;
-          const locationId = d.locationId;
-          if (!locationId) return;
+          const __location__Id = d.__location__Id;
+          if (!__location__Id) return;
 
-          completedLocationIds.add(locationId);
-          completedAtByLocationId[locationId] = toMs(d.completedAt);
+          completed__Location__Ids.add(__location__Id);
+          completedAtBy__Location__Id[__location__Id] = toMs(d.completedAt);
 
           if (doc.metadata.hasPendingWrites) {
-            pendingLocationIds.add(locationId);
+            pending__Location__Ids.add(__location__Id);
           }
 
           completions.push({ id: doc.id, ...d });
         });
 
         queryClient.setQueryData(["myCompletions", uid], {
-          completedLocationIds,
-          pendingLocationIds,
-          completedAtByLocationId,
+          completed__Location__Ids,
+          pending__Location__Ids,
+          completedAtBy__Location__Id,
           completions,
         });
       },
@@ -95,22 +95,22 @@ export function useMyCompletions() {
   const state = (data as typeof defaultState) || defaultState;
 
   const mergedState = useMemo(() => {
-    const finalCompletedIds = new Set(state.completedLocationIds);
-    const finalPendingIds = new Set(state.pendingLocationIds);
+    const finalCompletedIds = new Set(state.completed__Location__Ids);
+    const finalPendingIds = new Set(state.pending__Location__Ids);
 
     // Inject everything sitting in the offline queue into the UI's reality
     syncQueue.forEach((item) => {
-      // Make sure the items in your SyncStore queue now use `location.id`
-      if (item?.location?.id) {
-        finalCompletedIds.add(item.location.id);
-        finalPendingIds.add(item.location.id);
+      // Make sure the items in your SyncStore queue now use `__location__.id`
+      if (item?.__location__?.id) {
+        finalCompletedIds.add(item.__location__.id);
+        finalPendingIds.add(item.__location__.id);
       }
     });
 
     return {
       ...state,
-      completedLocationIds: finalCompletedIds,
-      pendingLocationIds: finalPendingIds,
+      completed__Location__Ids: finalCompletedIds,
+      pending__Location__Ids: finalPendingIds,
     };
   }, [state, syncQueue]);
 

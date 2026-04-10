@@ -11,7 +11,7 @@ const DEFAULT_CENTER = {
 export function initialRegionFrom(
   userLat: number | null,
   userLng: number | null,
-  locations: { lat: number; lng: number }[],
+  __locations__: { lat: number; lng: number }[],
 ): Region {
   // 1. Priority: User location (Zoomed in closer)
   if (userLat != null && userLng != null) {
@@ -23,15 +23,15 @@ export function initialRegionFrom(
     };
   }
 
-  // 2. Fallback: Center of all locations
-  if (locations.length > 0) {
+  // 2. Fallback: Center of all __locations__
+  if (__locations__.length > 0) {
     // We calculate the min/max to find the true geographic center
-    let minLat = locations[0].lat;
-    let maxLat = locations[0].lat;
-    let minLng = locations[0].lng;
-    let maxLng = locations[0].lng;
+    let minLat = __locations__[0].lat;
+    let maxLat = __locations__[0].lat;
+    let minLng = __locations__[0].lng;
+    let maxLng = __locations__[0].lng;
 
-    for (const loc of locations) {
+    for (const loc of __locations__) {
       if (loc.lat < minLat) minLat = loc.lat;
       if (loc.lat > maxLat) maxLat = loc.lat;
       if (loc.lng < minLng) minLng = loc.lng;

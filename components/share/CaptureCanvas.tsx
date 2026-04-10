@@ -2,14 +2,14 @@ import React, { forwardRef } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { AppText } from "@/components/ui/AppText";
 import { Row } from "@/components/ui/Row";
-import type { ShareLocationPayload } from "@/lib/services/share/types";
+import type { Share__Location__Payload } from "@/lib/services/share/types";
 
 // Replace these during your scaffolding process
 const PRIMARY = "__PRIMARY_COLOR__";
 const PRIMARY_DARK = "__PRIMARY_DARK_COLOR__";
 
 interface CaptureCanvasProps {
-  payload: ShareLocationPayload;
+  payload: Share__Location__Payload;
   photoUri: string | null;
   onImageLoad?: () => void;
 }
@@ -20,7 +20,7 @@ export const CaptureCanvas = forwardRef<View, CaptureCanvasProps>(
       <View ref={ref} collapsable={false} style={styles.canvas}>
         <View style={styles.inner}>
           <Row justify="space-between" align="center">
-            <AppText style={styles.hiddenHeaderTitle}>{payload.locationName}</AppText>
+            <AppText style={styles.hiddenHeaderTitle}>{payload.__location__Name}</AppText>
             <View style={styles.stamp}>
               <AppText style={styles.stampText}>{payload.visitedLabel}</AppText>
             </View>

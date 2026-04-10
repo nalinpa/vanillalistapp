@@ -15,7 +15,7 @@ import { AppText } from "@/components/ui/AppText";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { space } from "@/lib/ui/tokens";
 
-export type LocationFiltersValue = {
+export type __Location__FiltersValue = {
   category: string | null;
   region: string | null;
   hideCompleted: boolean;
@@ -38,7 +38,7 @@ const CATEGORIES = [
   { label: "Other", value: "other" },
 ];
 
-export function LocationFiltersCard({ value, onChange, shownCount }: any) {
+export function __Location__FiltersCard({ value, onChange, shownCount }: any) {
   const [expanded, setExpanded] = useState(false);
 
   const toggleHideCompleted = () => {

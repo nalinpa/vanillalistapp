@@ -60,7 +60,7 @@ export function MapOverlayCard({
 
   const isTargetingThis = isTracking && targetId === id;
 
-  const { locationData } = useLocationData(id);
+  const { __location__ } = use__Location__(id);
   const gate = useGPSGate(locationData, userLocation);
 
   const effectiveDistance = gate.distanceMeters ?? distanceMeters;
@@ -99,8 +99,8 @@ export function MapOverlayCard({
   };
 
   const handleGetDirections = () => {
-    if (locationData?.lat && locationData?.lng) {
-      getDirections(locationData.lat, locationData.lng, locationData.name);
+    if (__location__Data?.lat && __location__Data?.lng) {
+      getDirections(__location__Data.lat, __location__Data.lng, __location__Data.name);
     }
   };
 

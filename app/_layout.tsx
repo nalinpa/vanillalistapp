@@ -55,8 +55,8 @@ function RootLayout() {
     router.push({
       pathname: "/share-frame",
       params: {
-        locationId: successId, // Use successId, not targetId!
-        locationName: successTarget,
+        __location__Id: successId, // Use successId, not targetId!
+        __location__Name: successTarget,
       },
     });
   };
@@ -83,7 +83,7 @@ function RootLayout() {
         {showSuccess && (
           <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
             <SuccessScreen
-              locationId={successId!}
+              __location__Id={successId!}
               onClose={closeSuccess}
               onShare={handleShareFromSuccess}
             />

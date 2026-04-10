@@ -7,11 +7,11 @@ import { useSession } from "@/lib/providers/SessionProvider";
 /**
  * Fetcher for a single completion document.
  */
-async function fetchSpecificCompletion(uid: string, locationId: string) {
-  const completionId = `${uid}_${locationId}`;
+async function fetchSpecificCompletion(uid: string, __location__Id: string) {
+  const completionId = `${uid}_${__location__Id}`;
 
-  // Ensure COL.locationCompletions exists in your constants
-  const docRef = doc(db, COL.locationCompletions, completionId);
+  // Ensure COL.__location__Completions exists in your constants
+  const docRef = doc(db, COL.__location__Completions, completionId);
   const snap = await getDoc(docRef);
 
   if (!snap.exists) {
@@ -26,14 +26,14 @@ async function fetchSpecificCompletion(uid: string, locationId: string) {
   };
 }
 
-export function useLocationCompletion(locationId?: string | null) {
+export function use__Location__Completion(__location__Id?: string | null) {
   const { session } = useSession();
   const uid = session.status === "authed" ? session.uid : null;
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["location-completion-status", uid, locationId],
-    queryFn: () => fetchSpecificCompletion(uid!, locationId!),
-    enabled: !!uid && !!locationId,
+    queryKey: ["__location__-completion-status", uid, __location__Id],
+    queryFn: () => fetchSpecificCompletion(uid!, __location__Id!),
+    enabled: !!uid && !!__location__Id,
     // Prevents UI flickering by starting with null
     placeholderData: null,
   });

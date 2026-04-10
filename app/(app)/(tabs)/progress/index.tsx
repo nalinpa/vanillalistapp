@@ -16,12 +16,12 @@ import { useBadgesData } from "@/lib/hooks/useBadgesData";
 import { useNearestUncompleted } from "@/lib/hooks/useNearestUncompleted";
 import { useAppData } from "@/lib/providers/DataProvider";
 
-import { LocationsToReviewCard } from "@/components/progress/LocationsToReviewCard";
+import { __Locations__ToReviewCard } from "@/components/progress/__Locations__ToReviewCard";
 import { BadgesSummaryCard } from "@/components/badges/BadgesSummaryCard";
 import { NearestUncompletedCard } from "@/components/progress/NearestUncompletedCard";
 import { ProgressHeaderCard } from "@/components/progress/ProgressHeader";
 
-import { goBadges, goLocation, goLocationsHome, goLogin, goProgressHome } from "@/lib/routes";
+import { goBadges, go__Location__, go__Locations__Home, goLogin, goProgressHome } from "@/lib/routes";
 
 export default function ProgressScreen() {
   const { session } = useSession();
@@ -53,7 +53,7 @@ function GuestProgress() {
               <AppButton variant="primary" onPress={goLogin}>
                 Sign In
               </AppButton>
-              <AppButton variant="secondary" onPress={goLocationsHome}>
+              <AppButton variant="secondary" onPress={go__Locations__Home}>
                 Browse __ENTITY_PLURAL__
               </AppButton>
             </Stack>
@@ -65,29 +65,29 @@ function GuestProgress() {
 }
 
 function AuthedProgress() {
-  const { locationsData, completionsData: my, reviewsData: myReviews } = useAppData();
-  const { locations, loading: locationsLoading, err: locationsErr } = locationsData;
+  const { __locations__Data, completionsData: my, reviewsData: myReviews } = useAppData();
+  const { __locations__, loading: __locations__Loading, err: __locations__Err } = __locations__Data;
 
   const { location: loc, errorMsg: locErr } = useLocation();
   const { badgeState } = useBadgesData();
 
   const totals = useMemo(() => {
-    const total = locations.length;
-    const completed = locations.filter((c) => my.completedLocationIds.has(c.id)).length;
+    const total = __locations__.length;
+    const completed = __locations__.filter((c) => my.completedLocationIds.has(c.id)).length;
     const percent = total === 0 ? 0 : completed / total;
     return { total, completed, percent };
-  }, [locations, my.completedLocationIds]);
+  }, [__locations__, my.completed__Location__Ids]);
 
-  const nearestUncompleted = useNearestUncompleted(locations, my.completedLocationIds, loc);
+  const nearestUncompleted = useNearestUncompleted(__locations__, my.completed____Location____Ids, loc);
 
-  const locationsToReview = useMemo(() => {
-    return locations.filter(
-      (c) => my.completedLocationIds.has(c.id) && !myReviews.reviewedLocationIds.has(c.id),
+  const __locations__ToReview = useMemo(() => {
+    return __locations__.filter(
+      (c) => my.completed__Location__Ids.has(c.id) && !myReviews.reviewed__Location__Ids.has(c.id),
     );
-  }, [locations, my.completedLocationIds, myReviews.reviewedLocationIds]);
+  }, [__locations__, my.completed__Location__Ids, myReviews.reviewed__Location__Ids]);
 
-  const loading = locationsLoading || my.loading || myReviews.loading;
-  const fatalErr = locationsErr || my.err || myReviews.err;
+  const loading = __locations__Loading || my.loading || myReviews.loading;
+  const fatalErr = __locations__Err || my.err || myReviews.err;
 
   if (loading)
     return (
@@ -121,21 +121,22 @@ function AuthedProgress() {
           shareCount={my.shareBonusCount || 0}
           allDone={totals.completed >= totals.total && totals.total > 0}
           onOpenBadges={goBadges}
-          onBrowseLocations={goLocationsHome}
+          onBrowse__Location__s={go__Locations__Home}
         />
 
         <Section>
           <NearestUncompletedCard
-            location={nearestUncompleted?.location}
+            __location__={nearestUncompleted?.__location__}
             distanceMeters={nearestUncompleted?.distanceMeters}
             locErr={locErr}
-            onOpenLocation={goLocation}
+            onOpen__Location__={go__Location__}
           />
         </Section>
 
-        {locationsToReview.length > 0 && (
+        {__locations__ToReview.length > 0 && (
           <Section>
-            <LocationsToReviewCard locations={locationsToReview} onOpenLocation={goLocation} />
+            <__Locations__ToReviewCard 
+            __locations__={__locations__ToReview} onOpen__Location__={go__Location__} />
           </Section>
         )}
 

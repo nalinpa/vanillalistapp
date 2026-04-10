@@ -3,14 +3,14 @@ import { doc, getDoc } from "@react-native-firebase/firestore";
 
 import { db } from "@/lib/firebase";
 import { COL } from "@/lib/constants/firestore";
-import type { Location } from "@/lib/models";
+import type { __Location__ } from "@/lib/models";
 
-async function fetchLocation(locationId: string): Promise<Location | null> {
-  const ref = doc(db, COL.locations, locationId);
+async function fetch__Location__(__location__Id: string): Promise<__Location__ | null> {
+  const ref = doc(db, COL.__locations__, __location__Id);
   const docSnap = await getDoc(ref);
 
   if (!docSnap.exists()) {
-    throw new Error("Location not found");
+    throw new Error("__Location__ not found");
   }
 
   const data = docSnap.data();
@@ -21,14 +21,14 @@ async function fetchLocation(locationId: string): Promise<Location | null> {
     ...data,
     name: data.name ?? "",
     description: data.description ?? "",
-  } as Location;
+  } as __Location__;
 }
 
-export function useLocationItem(locationId: string | null | undefined) {
+export function use__Location__Item(__location__Id: string | null | undefined) {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["location", locationId],
-    queryFn: () => fetchLocation(locationId!),
-    enabled: !!locationId,
+    queryKey: ["__location__", __location__Id],
+    queryFn: () => fetch__Location__(__location__Id!),
+    enabled: !!__location__Id,
 
     // 1. Consider data fresh for 2 weeks (in milliseconds)
     staleTime: 1000 * 60 * 60 * 24 * 14, 
@@ -44,7 +44,7 @@ export function useLocationItem(locationId: string | null | undefined) {
   });
 
   return {
-    location: data || null,
+    __location__: data || null,
     loading: isLoading,
     err: error instanceof Error ? error.message : "",
   };

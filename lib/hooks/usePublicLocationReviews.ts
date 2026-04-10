@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { reviewService } from "@/lib/services/reviewService";
 
-export function usePublicLocationReviews(locationId: string) {
+export function usePublic__Location__Reviews(__location__Id: string) {
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["public-reviews", locationId],
-    queryFn: () => reviewService.getPublicLocationReviews(locationId),
-    enabled: !!locationId,
+    queryKey: ["public-reviews", __location__Id],
+    queryFn: () => reviewService.getPublic__Location__Reviews(__location__Id),
+    enabled: !!__location__Id,
   });
 
   return {

@@ -3,18 +3,18 @@ import * as Sentry from "@sentry/react-native";
 import { shareService } from "@/lib/services/share/shareService";
 import { completionService } from "@/lib/services/completionService";
 
-export function useLocationShareAction() {
+export function use__Location__ShareAction() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({
       previewUri,
       uid,
-      locationId,
+      __location__Id,
     }: {
       previewUri: string;
       uid: string | null;
-      locationId: string;
+      __location__Id: string;
     }) => {
       // 1. Trigger the Native Share Sheet
       const res = await shareService.shareImageUriAsync(previewUri);
@@ -26,7 +26,7 @@ export function useLocationShareAction() {
         // Ensure confirmShareBonus is renamed to confirmShare in completionService.ts
         await completionService.confirmShare({
           uid,
-          locationId,
+          __location__Id,
           platform: "share-sheet",
         });
       }

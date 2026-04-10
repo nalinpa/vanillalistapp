@@ -18,40 +18,40 @@ const EMPTY_IDS = new Set<string>();
 
 async function fetchMyReviews(uid: string) {
   // Ensure COL.locationReviews exists in your constants
-  const qy = query(collection(db, COL.locationReviews), where("userId", "==", uid));
+  const qy = query(collection(db, COL.__location__Reviews), where("userId", "==", uid));
 
   const snap = await getDocs(qy);
 
   const ids = new Set<string>();
-  const atByLocation: Record<string, number> = Object.create(null);
+  const atBy__Location__: Record<string, number> = Object.create(null);
 
   for (const d of snap.docs) {
     const val = d.data();
-    const locationId = typeof val?.locationId === "string" ? val.locationId : null;
-    if (!locationId) continue;
+    const __location__Id = typeof val?.__location__Id === "string" ? val.__location__Id : null;
+    if (!__location__Id) continue;
 
-    ids.add(locationId);
+    ids.add(__location__Id);
 
     const t = toMs(val?.reviewCreatedAt);
     if (t > 0) {
-      const prev = atByLocation[locationId] ?? 0;
-      atByLocation[locationId] = prev > 0 ? Math.min(prev, t) : t;
+      const prev = atBy__Location__[__location__Id] ?? 0;
+      atBy__Location__[__location__Id] = prev > 0 ? Math.min(prev, t) : t;
     }
   }
 
   return {
-    reviewedLocationIds: ids,
+    reviewed__Location__Ids: ids,
     reviewCount: ids.size,
-    reviewedAtByLocationId: atByLocation,
+    reviewedAtBy__Location__Id: atBy__Location__,
   };
 }
 
 export function useMyReviews(): {
   loading: boolean;
   err: string;
-  reviewedLocationIds: Set<string>;
+  reviewed__Location__Ids: Set<string>;
   reviewCount: number;
-  reviewedAtByLocationId: Record<string, number>;
+  reviewedAtBy__Location__Id: Record<string, number>;
 } {
   const { session } = useSession();
   const uid = session.status === "authed" ? session.uid : null;
@@ -63,9 +63,9 @@ export function useMyReviews(): {
   });
 
   const defaultState = {
-    reviewedLocationIds: EMPTY_IDS,
+    reviewed__Location__Ids: EMPTY_IDS,
     reviewCount: 0,
-    reviewedAtByLocationId: {},
+    reviewedAtBy__Location__Id: {},
   };
 
   const state = data || defaultState;

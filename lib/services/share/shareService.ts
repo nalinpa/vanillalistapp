@@ -3,14 +3,14 @@ import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import * as Sentry from "@sentry/react-native";
 
-import type { ShareLocationPayload, ShareResult } from "./types";
+import type { Share__Location__Payload, ShareResult } from "./types";
 import { renderShareCardPngAsync } from "./shareRenderskia";
 
-function buildTextShare(payload: ShareLocationPayload): { message: string; title?: string } {
+function buildTextShare(payload: Share__Location__Payload): { message: string; title?: string } {
   return {
     title: "App Name Placeholder",
     message: [
-      `Check out: ${payload.locationName}`,
+      `Check out: ${payload.__location__Name}`,
       "",
       "Shared via App Name Placeholder",
     ].join("\n"),
@@ -62,7 +62,7 @@ async function shareImageAsync(fileUri: string): Promise<boolean> {
   }
 }
 
-async function shareTextAsync(payload: ShareLocationPayload): Promise<boolean> {
+async function shareTextAsync(payload: Share__Location__Payload): Promise<boolean> {
   const { message, title } = buildTextShare(payload);
   try {
     await RNShare.share({ message, title });
@@ -101,7 +101,7 @@ export const shareService = {
   /**
    * Main entry point: try offscreen image render (only if safe), otherwise fall back to text.
    */
-  async shareLocationAsync(payload: ShareLocationPayload): Promise<ShareResult> {
+  async share__Location__Async(payload: Share__Location__Payload): Promise<ShareResult> {
     if (canAttemptOffscreenRender()) {
       try {
         const uri = await renderShareCardPngAsync(payload);

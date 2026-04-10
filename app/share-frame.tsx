@@ -37,15 +37,15 @@ export default function ShareFrameRoute() {
 
   const shareCardRef = useRef<View>(null);
   const params = useLocalSearchParams<{
-    locationId: string;
-    locationName: string;
+    __location__Id: string;
+    __location__Name: string;
     visitedLabel?: string;
   }>();
 
   const payload = useMemo(
     () => ({
-      locationId: params.locationId || "",
-      locationName: params.locationName || "",
+      __location__Id: params.__location__Id || "",
+      __location__Name: params.__location__Name || "",
       visitedLabel: params.visitedLabel || "Visited",
     }),
     [params],
@@ -126,7 +126,7 @@ export default function ShareFrameRoute() {
 
     try {
       // ✅ Hand off all the database and cache logic to the hook
-      await submitShareBonus({ previewUri, uid, locationId: payload.locationId });
+      await submitShareBonus({ previewUri, uid, __location__Id: payload.__location__Id });
 
       setShareSuccess(true);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -139,7 +139,7 @@ export default function ShareFrameRoute() {
     }
   };
 
-  if (shareSuccess) return <ShareSuccess locationName={payload.locationName} />;
+  if (shareSuccess) return <ShareSuccess __location__Name={payload.__location__Name} />;
 
   return (
     <Screen padded={false}>

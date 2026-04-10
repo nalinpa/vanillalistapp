@@ -10,23 +10,23 @@ import { AppText } from "@/components/ui/AppText";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { space } from "@/lib/ui/tokens";
 
-type ConeLite = {
+type __Location__Lite = {
   id: string;
   name: string;
   description?: string;
 };
 
-export function ConesToReviewCard({
-  cones,
-  onOpenCone,
+export function __Location__sToReviewCard({
+  __location__s,
+  onOpen__Location__,
 }: {
-  cones: ConeLite[];
-  onOpenCone: (id: string) => void;
+  __location__s: __Location__Lite[];
+  onOpen__Location__: (id: string) => void;
 }) {
-  if (!cones || cones.length === 0) return null;
+  if (!__location__s || __location__s.length === 0) return null;
 
-  const visible = cones.slice(0, 3);
-  const remaining = cones.length - visible.length;
+  const visible = __location__s.slice(0, 3);
+  const remaining = __location__s.length - visible.length;
 
   return (
     <CardShell status="basic">
@@ -37,19 +37,19 @@ export function ConesToReviewCard({
             <AppIcon icon={MessageSquarePlus} variant="surf" size={18} />
             <AppText variant="sectionTitle">Pending Reviews</AppText>
           </Row>
-          <Pill status="surf">{cones.length}</Pill>
+          <Pill status="surf">{__location__s.length}</Pill>
         </Row>
 
         <AppText variant="body" status="hint">
           Share your thoughts on your recent adventures.
         </AppText>
 
-        {/* List of Cones */}
+        {/* List of __Location__s */}
         <Stack gap="sm">
-          {visible.map((cone) => (
+          {visible.map((__location__) => (
             <CardShell
-              key={cone.id}
-              onPress={() => onOpenCone(cone.id)}
+              key={__location__.id}
+              onPress={() => onOpen__Location__(__location__.id)}
               style={styles.innerCard}
             >
               <Row justify="space-between" align="center">
@@ -57,11 +57,11 @@ export function ConesToReviewCard({
                   <AppIcon icon={Star} variant="surf" size={16} />
                   <View style={styles.flex1}>
                     <AppText variant="body" style={styles.bold}>
-                      {cone.name}
+                      {__location__.name}
                     </AppText>
-                    {cone.description?.trim() && (
+                    {__location__.description?.trim() && (
                       <AppText variant="label" status="hint" numberOfLines={1}>
-                        {cone.description.trim()}
+                        {__location__.description.trim()}
                       </AppText>
                     )}
                   </View>

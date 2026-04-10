@@ -1,4 +1,4 @@
-import type { ConeRegion } from "@/lib/models";
+import type { __Location__Region } from "@/lib/models";
 
 export const BRAND_COLORS = {
   "primary-100": "#E6F5F2",
@@ -11,7 +11,7 @@ export const BRAND_COLORS = {
   "primary-800": "#2F6F65",
   "primary-900": "#215850",
 };
-export function formatRegionLabel(r?: ConeRegion): string {
+export function formatRegionLabel(r?: __Location__Region): string {
   if (!r) return "Auckland";
   switch (r) {
     case "north":

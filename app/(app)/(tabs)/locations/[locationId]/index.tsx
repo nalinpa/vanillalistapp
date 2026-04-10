@@ -11,48 +11,48 @@ import { Stack as UIStack } from "@/components/ui/Stack";
 import { useSession } from "@/lib/providers/SessionProvider";
 import { useLocation } from "@/lib/providers/LocationProvider";
 import { useUserLocation } from "@/lib/hooks/useUserLocation";
-import { useCone } from "@/lib/hooks/useLocation";
+import { use__Location__ } from "@/lib/hooks/use__Location__";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
-import { useConeReviewsSummary } from "@/lib/hooks/useLocationReviewsSummary";
+import { use__Location__ReviewsSummary } from "@/lib/hooks/use__Location__ReviewsSummary";
 import { useMyCompletions } from "@/lib/hooks/useMyCompletions";
 import { useDraftsStore, useTrackingStore } from "@/lib/store/index";
 import { GAMEPLAY } from "@/lib/constants/gameplay";
 
-import { ConeHero } from "@/components/location/detail/LocationHero";
-import { ReviewsSummaryCard } from "@/components/location/detail/ReviewsSummaryCard";
-import { StatusCard } from "@/components/location/detail/StatusCard";
-import { ActionsCard } from "@/components/location/detail/ActionsCard";
-import { ReviewModal } from "@/components/location/detail/ReviewModal";
-import { goConesHome, goConeReviews } from "@/lib/routes";
-import { FloatingBackButton } from "@/components/location/detail/FloatingBackButton";
+import { __Location__Hero } from "@/components/__location__/detail/__Location__Hero";
+import { ReviewsSummaryCard } from "@/components/__location__/detail/ReviewsSummaryCard";
+import { StatusCard } from "@/components/__location__/detail/StatusCard";
+import { ActionsCard } from "@/components/__location__/detail/ActionsCard";
+import { ReviewModal } from "@/components/__location__/detail/ReviewModal";
+import { go__Location__sHome, go__Location__Reviews } from "@/lib/routes";
+import { FloatingBackButton } from "@/components/__location__/detail/FloatingBackButton";
 
 const MAX_ACCURACY_METERS = GAMEPLAY.MAX_GPS_ACCURACY_METERS;
 
-export default function ConeDetailRoute() {
-  const { coneId } = useLocalSearchParams<{ coneId: string }>();
+export default function __Location__DetailRoute() {
+  const { __location__Id } = useLocalSearchParams<{ __location__Id: string }>();
   const { session } = useSession();
 
   const {
-    completedConeIds,
-    pendingConeIds,
-    sharedConeIds,
+    completed__Location__Ids,
+    pending__Location__Ids,
+    shared__Location__Ids,
     loading: compsLoading,
   } = useMyCompletions();
 
-  const isCompleted = !!coneId && completedConeIds.has(coneId);
-  const isSyncing = !!coneId && pendingConeIds.has(coneId);
-  const hasShareBonus = !!coneId && sharedConeIds.has(coneId);
+  const isCompleted = !!__location__Id && completed__Location__Ids.has(__location__Id);
+  const isSyncing = !!__location__Id && pending__Location__Ids.has(__location__Id);
+  const hasShareBonus = !!__location__Id && shared__Location__Ids.has(__location__Id);
 
   const [reviewErr, setReviewErr] = useState<string | null>(null);
 
-  const { cone, loading: coneLoading, err: coneErr } = useCone(coneId);
+  const { __location__, loading: __location__Loading, err: __location__Err } = use__Location__(__location__Id);
   const { location: userCoords, errorMsg: providerErr } = useLocation();
   const { refresh: refreshLocation, err: manualErr } = useUserLocation();
 
   const locErr = providerErr || manualErr;
   const locStatus = locErr ? "denied" : userCoords ? "granted" : "unknown";
 
-  const gate = useGPSGate(cone, userCoords, { maxAccuracyMeters: MAX_ACCURACY_METERS });
+  const gate = useGPSGate(__location__, userCoords, { maxAccuracyMeters: MAX_ACCURACY_METERS });
 
   const {
     avgRating,
@@ -61,7 +61,7 @@ export default function ConeDetailRoute() {
     myText: myReviewText,
     saving: reviewsSaving,
     saveReview: saveReviewToDb,
-  } = useConeReviewsSummary(coneId);
+  } = use__Location__ReviewsSummary(__location__Id);
 
   const [showBackButton, setShowBackButton] = useState(true);
   const [err, setErr] = useState("");
@@ -69,7 +69,7 @@ export default function ConeDetailRoute() {
 
   const { drafts, setDraft, clearDraft } = useDraftsStore();
   const { triggerSuccessUI } = useTrackingStore();
-  const currentDraft = drafts[coneId || ""] || { rating: null, text: "" };
+  const currentDraft = drafts[__location__Id || ""] || { rating: null, text: "" };
 
   const refreshGPS = useCallback(async () => {
     if (locStatus !== "denied") await refreshLocation();
@@ -101,21 +101,21 @@ export default function ConeDetailRoute() {
     };
   }, [err]);
 
-  if (coneLoading || compsLoading || session.status === "loading") {
+  if (__location__Loading || compsLoading || session.status === "loading") {
     return (
       <Screen>
-        <LoadingState label="Scouting location..." />
+        <LoadingState label="Scouting __location__..." />
       </Screen>
     );
   }
 
-  if (coneErr || !cone) {
+  if (__location__Err || !__location__) {
     return (
       <Screen>
         <ErrorCard
           title="Peak Not Found"
-          message={coneErr || "Could not find volcano."}
-          action={{ label: "Go Back", onPress: goConesHome }}
+          message={__location__Err || "Could not find volcano."}
+          action={{ label: "Go Back", onPress: go__Location__sHome }}
         />
       </Screen>
     );
@@ -125,7 +125,7 @@ export default function ConeDetailRoute() {
     <Screen padded={false}>
       <ExpoStack.Screen
         options={{
-          title: cone.name,
+          title: __location__.name,
           headerTransparent: true,
           headerTintColor: "#fff",
           headerLeft: () => null,
@@ -143,7 +143,7 @@ export default function ConeDetailRoute() {
           setShowBackButton(offsetY < 50);
         }}
       >
-        <ConeHero cone={cone} completed={isCompleted} />
+        <__Location__Hero __location__={__location__} completed={isCompleted} />
 
         <UIStack gap="md" style={styles.content}>
           {err && (
@@ -155,25 +155,25 @@ export default function ConeDetailRoute() {
           )}
 
           <StatusCard
-            coneId={coneId}
-            title={cone.name}
+            __location__Id={__location__Id}
+            title={__location__.name}
             completed={isCompleted}
             loc={userCoords}
-            onCheckIn={() => triggerSuccessUI(cone.name, coneId)}
+            onCheckIn={() => triggerSuccessUI(__location__.name, __location__Id)}
           />
 
           <ReviewsSummaryCard
             ratingCount={ratingCount}
             avgRating={avgRating}
-            onViewAll={() => goConeReviews(cone.id, cone.name)}
+            onViewAll={() => go__Location__Reviews(__location__.id, __location__.name)}
             isCompleted={isCompleted}
             hasUserReviewed={!!myRating}
             onAddReview={() => setReviewOpen(true)}
           />
 
           <ActionsCard
-            id={cone.id}
-            title={cone.name}
+            id={__location__.id}
+            title={__location__.name}
             distanceMeters={gate.distanceMeters ?? 0}
             completed={isCompleted}
             shareBonus={hasShareBonus}
@@ -186,7 +186,7 @@ export default function ConeDetailRoute() {
             onShareBonus={() =>
               router.push({
                 pathname: "/share-frame",
-                params: { coneId: cone.id, coneName: cone.name },
+                params: { __location__Id: __location__.id, __location__Name: __location__.name },
               })
             }
           />
@@ -200,11 +200,11 @@ export default function ConeDetailRoute() {
         draftText={currentDraft.text}
         error={reviewErr}
         onChangeRating={(val) => {
-          if (coneId) setDraft(coneId, val, currentDraft.text);
+          if (__location__Id) setDraft(__location__Id, val, currentDraft.text);
           setReviewErr(null);
         }}
         onChangeText={(text) => {
-          if (coneId) setDraft(coneId, currentDraft.rating, text);
+          if (__location__Id) setDraft(__location__Id, currentDraft.rating, text);
           setReviewErr(null);
         }}
         onClose={() => {
@@ -214,14 +214,14 @@ export default function ConeDetailRoute() {
         onSave={async () => {
           setReviewErr(null);
           const res = await saveReviewToDb({
-            coneId: cone.id,
-            coneSlug: cone.slug,
-            coneName: cone.name,
+            __location__Id: __location__.id,
+            __location__Slug: __location__.slug,
+            __location__Name: __location__.name,
             reviewRating: currentDraft.rating!,
             reviewText: currentDraft.text,
           });
           if (res.ok) {
-            if (coneId) clearDraft(coneId);
+            if (__location__Id) clearDraft(__location__Id);
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             setReviewOpen(false);
           } else {

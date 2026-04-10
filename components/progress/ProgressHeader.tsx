@@ -51,7 +51,7 @@ export function ProgressHeaderCard({
   shareCount,
   allDone,
   onOpenBadges,
-  onBrowseLocations,
+  onBrowse__Locations__,
 }: {
   completed: number;
   total: number;
@@ -60,7 +60,7 @@ export function ProgressHeaderCard({
   shareCount: number;
   allDone: boolean;
   onOpenBadges: () => void;
-  onBrowseLocations?: () => void;
+  onBrowse__Locations__?: () => void;
 }) {
   const remaining = Math.max(0, total - completed);
   const isEmpty = total > 0 && completed <= 0;
@@ -145,8 +145,8 @@ export function ProgressHeaderCard({
               </AppText>{" "}
               when you’re nearby.
             </AppText>
-            {onBrowseLocations && (
-              <AppButton onPress={onBrowseLocations} style={styles.ctaButton}>
+            {onBrowse__Locations__ && (
+              <AppButton onPress={onBrowse__Locations__} style={styles.ctaButton}>
                 Browse __ENTITY_PLURAL__
               </AppButton>
             )}

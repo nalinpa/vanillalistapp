@@ -12,7 +12,7 @@ import { AppIcon } from "@/components/ui/AppIcon";
 import { space } from "@/lib/ui/tokens";
 import type { LocationStatus } from "@/lib/hooks/useUserLocation";
 
-export function LocationListHeader({
+export function __Location__ListHeader({
   status,
   hasLoc,
   locErr,

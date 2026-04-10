@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Marker } from "react-native-maps";
-import { LocationMarker } from "@/components/map/LocationMarker";
-import type { LocationMapPoint } from "./LocationsMapView";
+import { __Location__Marker } from "@/components/map/__Location__Marker";
+import type {__ Location__MapPoint__ } from "./__Locations__MapView";
 
 type TrackedMarkerProps = {
-  locationData: LocationMapPoint;
+  __location__Data: __Location__MapPoint;
   selected: boolean;
   completed: boolean;
   onPress: (id: string) => void;
 };
 
 export const TrackedMarker = React.memo(
-  ({ locationData, selected, completed, onPress }: TrackedMarkerProps) => {
+  ({ __location__Data, selected, completed, onPress }: TrackedMarkerProps) => {
     // 1. Start with tracking ENABLED so it definitely renders the first time
     const [track, setTrack] = useState(true);
 
@@ -31,14 +31,14 @@ export const TrackedMarker = React.memo(
 
     return (
       <Marker
-        coordinate={{ latitude: locationData.lat, longitude: locationData.lng }}
-        onPress={() => onPress(locationData.id)}
+        coordinate={{ latitude: __location__Data.lat, longitude: __location__Data.lng }}
+        onPress={() => onPress(__location__Data.id)}
         // The magic fix: only stays true long enough to "snap" the image
         tracksViewChanges={track}
         anchor={{ x: 0.5, y: 0.5 }}
         zIndex={selected ? 2 : 1}
       >
-        <LocationMarker selected={selected} completed={completed} />
+        <__Location__Marker selected={selected} completed={completed} />
       </Marker>
     );
   },
@@ -47,7 +47,7 @@ export const TrackedMarker = React.memo(
     return (
       prev.selected === next.selected &&
       prev.completed === next.completed &&
-      prev.locationData.id === next.locationData.id
+      prev.__location__Data.id === next.__location__Data.id
     );
   },
 );

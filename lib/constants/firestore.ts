@@ -1,7 +1,7 @@
 export const COL = {
-  locations: "locations",
-  locationCompletions: "locationCompletions",
-  locationReviews: "locationReviews",
+  __locations__: "__locations__",
+  __location__Completions: "__location__Completions",
+  __location__Reviews: "__location__Reviews",
   reports: "reports",
   blocks: "blocks",
 } as const;

@@ -18,8 +18,8 @@ export type PublicReview = {
   id: string;
   userId: string;
   userName?: string;
-  locationId: string;
-  locationName?: string;
+  __location__Id: string;
+  __location__Name?: string;
   reviewRating: number; // 1..5
   reviewText?: string | null;
   reviewCreatedAt?: any;
@@ -59,8 +59,8 @@ function mapPublicReview(id: string, data: any): PublicReview {
     id,
     userId: String(data.userId ?? ""),
     userName: typeof data.userName === "string" ? data.userName : "this user", 
-    locationId: String(data.locationId ?? ""),
-    locationName: typeof data.locationName === "string" ? data.locationName : undefined,
+    __location__Id: String(data.__location__Id ?? ""),
+    __location__Name: typeof data.__location__Name === "string" ? data.__location__Name : undefined,
     reviewRating: clampRatingRequired(data.reviewRating),
     reviewText: cleanText(data.reviewText, 280),
     reviewCreatedAt: data.reviewCreatedAt ?? null,
@@ -68,13 +68,13 @@ function mapPublicReview(id: string, data: any): PublicReview {
 }
 
 export const reviewService = {
-  async getPublicLocationReviews(locationId: string): Promise<PublicReview[]> {
-    if (!locationId) throw new Error("Missing locationId.");
+  async getPublic__Location__Reviews(__location__Id: string): Promise<PublicReview[]> {
+    if (!__location__Id) throw new Error("Missing __location__Id.");
 
-    // Ensure COL.locationReviews exists in your constants
+    // Ensure COL.__location__Reviews exists in your constants
     const qy = query(
-      collection(db, COL.locationReviews),
-      where("locationId", "==", String(locationId)),
+      collection(db, COL.__location__Reviews),
+      where("__location__Id", "==", String(__location__Id)),
       orderBy("reviewCreatedAt", "desc"),
     );
 
@@ -88,41 +88,41 @@ export const reviewService = {
   async saveReview(args: {
     uid: string | null | undefined; 
     userName: string | null | undefined; 
-    locationId: string;
-    locationSlug: string;
-    locationName: string;
+    __location__Id: string;
+    __location__Slug: string;
+    __location__Name: string;
     reviewRating: number | null | undefined;
     reviewText: string | null | undefined;
   }): Promise<{ ok: true } | { ok: false; err: string }> {
-    const { uid, locationId } = args;
+    const { uid, __location__Id } = args;
 
     if (!uid) return { ok: false, err: "You must be logged in" };
-    if (!locationId) return { ok: false, err: "Missing locationId" };
+    if (!__location__Id) return { ok: false, err: "Missing __location__Id" };
 
     const rating = clampRating(args.reviewRating);
     const text = cleanText(args.reviewText, 280);
 
     if (rating == null) return { ok: false, err: "Pick a rating (1–5)." };
 
-    const reviewId = `${uid}_${String(locationId)}`;
-    const reviewRef = doc(db, COL.locationReviews, reviewId);
-    const locationRef = doc(db, COL.locations, String(locationId));
+    const reviewId = `${uid}_${String(__location__Id)}`;
+    const reviewRef = doc(db, COL.__location__Reviews, reviewId);
+    const __location__Ref = doc(db, COL.____location__s__, String(__location__Id));
 
     try {
       await runTransaction(db, async (tx) => {
-        // 1. Read Location (for aggregates)
-        const locationSnap = await tx.get(locationRef);
-        if (!locationSnap.exists()) throw new Error("Location not found");
+        // 1. Read __Location__ (for aggregates)
+        const __location__Snap = await tx.get(__location__Ref);
+        if (!__location__Snap.exists()) throw new Error("__Location__ not found");
 
         // 2. Read Review (to check for update vs create)
         const reviewSnap = await tx.get(reviewRef);
         const existing = reviewSnap.exists() ? reviewSnap.data() : null;
 
         // 3. Calculate Aggregates
-        const locationData = locationSnap.data()!;
-        let count = (locationData.ratingCount || 0) as number;
-        let sum = (locationData.ratingSum || 0) as number;
-        const currentAvg = (locationData.avgRating || 0) as number;
+        const __location__Data = __location__Snap.data()!;
+        let count = (__location__Data.ratingCount || 0) as number;
+        let sum = (__location__Data.ratingSum || 0) as number;
+        const currentAvg = (__location__Data.avgRating || 0) as number;
 
         // Backfill sum if missing (legacy data support)
         if (!sum && count > 0 && currentAvg > 0) {
@@ -145,9 +145,9 @@ export const reviewService = {
         tx.set(
           reviewRef,
           {
-            locationId: String(locationId),
-            locationSlug: String(args.locationSlug ?? ""),
-            locationName: String(args.locationName ?? ""),
+            __location__Id: String(__location__Id),
+            __location__Slug: String(args.__location__Slug ?? ""),
+            __location__Name: String(args.__location__Name ?? ""),
             userId: uid,
             userName: args.userName ? String(args.userName) : "Unknown User", 
             reviewRating: rating,
@@ -158,8 +158,8 @@ export const reviewService = {
           { merge: true },
         );
 
-        // 5. Update Location
-        tx.update(locationRef, {
+        // 5. Update __Location__
+        tx.update(__location__Ref, {
           ratingCount: count,
           ratingSum: sum,
           avgRating: newAvg,

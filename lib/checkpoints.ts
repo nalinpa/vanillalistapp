@@ -8,7 +8,7 @@ export type Checkpoint = {
   radiusMeters: number;
 };
 
-export type LocationWithCheckpoints = {
+export type __Location__WithCheckpoints = {
   id: string;
   lat: number;
   lng: number;
@@ -23,10 +23,10 @@ export type EffectiveCheckpoint = Checkpoint & {
 };
 
 export function getEffectiveCheckpoints(
-  location: LocationWithCheckpoints,
+  __location__: __Location__WithCheckpoints,
 ): EffectiveCheckpoint[] {
-  if (location.checkpoints && location.checkpoints.length > 0) {
-    return location.checkpoints.map((cp, idx) => ({
+  if (__location__.checkpoints && __location__.checkpoints.length > 0) {
+    return __location__.checkpoints.map((cp, idx) => ({
       id: cp.id ?? `cp_${idx}`,
       label: cp.label ?? `Checkpoint ${idx + 1}`,
       lat: cp.lat,
@@ -40,20 +40,20 @@ export function getEffectiveCheckpoints(
     {
       id: "fallback",
       label: "Main point",
-      lat: location.lat,
-      lng: location.lng,
-      radiusMeters: location.radiusMeters,
+      lat: __location__.lat,
+      lng: __location__.lng,
+      radiusMeters: __location__.radiusMeters,
       source: "fallback" as const,
     },
   ];
 }
 
 export function nearestCheckpoint(
-  location: LocationWithCheckpoints,
+  __location__: __Location__WithCheckpoints,
   deviceLat: number,
   deviceLng: number,
 ): { checkpoint: EffectiveCheckpoint; distanceMeters: number } {
-  const cps = getEffectiveCheckpoints(location);
+  const cps = getEffectiveCheckpoints(__location__);
   const userCoords = { latitude: deviceLat, longitude: deviceLng };
 
   const formattedCps = cps.map((cp) => ({

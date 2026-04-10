@@ -4,12 +4,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Sentry from "@sentry/react-native";
 import { completionService } from "../services/completionService";
 
-type CompleteLocationArgs = Parameters<typeof completionService.completeLocation>[0];
+type Complete__Location__Args = Parameters<typeof completionService.complete__Location__>[0];
 
 interface SyncState {
-  queue: CompleteLocationArgs[];
+  queue: Complete__Location__Args[];
   isSyncing: boolean;
-  addToQueue: (visit: CompleteLocationArgs) => void;
+  addToQueue: (visit: Complete__Location__Args) => void;
   processQueue: () => Promise<void>;
 }
 
@@ -21,8 +21,8 @@ export const useSyncStore = create<SyncState>()(
 
       addToQueue: (visit) => {
         const { queue } = get();
-        // Prevent duplicate queue entries for the same location
-        if (queue.some((v) => v.location.id === visit.location.id)) return;
+        // Prevent duplicate queue entries for the same __location__
+        if (queue.some((v) => v.__location__.id === visit.__location__.id)) return;
         set({ queue: [...queue, visit] });
       },
 
@@ -33,17 +33,17 @@ export const useSyncStore = create<SyncState>()(
 
         set({ isSyncing: true });
 
-        const remainingQueue: CompleteLocationArgs[] = [];
+        const remainingQueue: Complete__Location__Args[] = [];
 
         for (const visit of queue) {
           try {
-            const res = await completionService.completeLocation(visit);
+            const res = await completionService.complete__Location__(visit);
 
             if (res && res.ok === false) {
               // Ignore deliberate network timeouts, but log actual Firebase rejections
               if (res.err !== "FIREBASE_TIMEOUT") {
                 Sentry.captureMessage(
-                  `Firebase rejected location sync: ${res.err}`,
+                  `Firebase rejected __location__ sync: ${res.err}`,
                   "warning",
                 );
               }
@@ -53,7 +53,7 @@ export const useSyncStore = create<SyncState>()(
             // Log true crashes to Sentry with extra context
             Sentry.captureException(error, {
               tags: { context: "SyncEngine" },
-              extra: { locationName: visit.location.name, locationId: visit.location.id },
+              extra: { ____location____Name: visit.____location____.name, ____location____Id: visit.____location____.id },
             });
             remainingQueue.push(visit);
           }
@@ -63,7 +63,7 @@ export const useSyncStore = create<SyncState>()(
       },
     }),
     {
-      name: "location-sync-storage-v1",
+      name: "____location____-sync-storage-v1",
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({ queue: state.queue }),
     },

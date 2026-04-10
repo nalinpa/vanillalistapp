@@ -55,8 +55,8 @@ export const userService = {
 
     // 1. Identify all completion records for this user
     const completionsQ = query(
-      // Ensure COL.locationCompletions exists in your constants
-      collection(db, COL.locationCompletions),
+      // Ensure COL.__location__Completions exists in your constants
+      collection(db, COL.__location__Completions),
       where("userId", "==", uid),
     );
     const completionsSnap = await getDocs(completionsQ);
@@ -66,8 +66,8 @@ export const userService = {
     );
 
     // 2. Identify all review records for this user
-    // Ensure COL.locationReviews exists in your constants
-    const reviewsQ = query(collection(db, COL.locationReviews), where("userId", "==", uid));
+    // Ensure COL.__location__Reviews exists in your constants
+    const reviewsQ = query(collection(db, COL.__location__Reviews), where("userId", "==", uid));
     const reviewsSnap = await getDocs(reviewsQ);
     reviewsSnap.forEach((d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
       batch.delete(d.ref),

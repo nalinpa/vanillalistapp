@@ -7,7 +7,7 @@ const CIRCLE_SIZE = 32;
 const BG_COLOR = "white";
 
 // Memoize the visual component to avoid re-calculating SVG paths
-export const LocationMarker = React.memo(function LocationMarker({
+export const ____Location____Marker = React.memo(function __Location__Marker({
   selected,
   completed,
 }: {

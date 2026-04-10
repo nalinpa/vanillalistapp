@@ -12,7 +12,7 @@ import { AppIcon } from "@/components/ui/AppIcon";
 import { formatDistanceMeters } from "@/lib/formatters";
 import { space } from "@/lib/ui/tokens";
 
-type LocationListItemProps = {
+type __Location__ListItemProps = {
   id: string;
   name: string;
   description?: string;
@@ -22,7 +22,7 @@ type LocationListItemProps = {
   index: number;
 };
 
-export function LocationListItem({
+export function __Location__ListItem({
   id,
   name,
   description,
@@ -30,7 +30,7 @@ export function LocationListItem({
   distanceMeters,
   onPress,
   index,
-}: LocationListItemProps) {
+}: __Location__ListItemProps) {
   const hasDistance = distanceMeters != null;
 
   return (

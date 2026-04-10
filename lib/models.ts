@@ -1,5 +1,5 @@
-export type LocationCategory = "type_a" | "type_b" | "type_c" | "other";
-export type LocationRegion = "north" | "south" | "east" | "west" | "central";
+export type __Location__Category = "type_a" | "type_b" | "type_c" | "other";
+export type __Location__Region = "north" | "south" | "east" | "west" | "central";
 
 export type Checkpoint = {
   id?: string; // stable string (recommended)
@@ -9,7 +9,7 @@ export type Checkpoint = {
   radiusMeters: number;
 };
 
-export type Location = {
+export type __Location__ = {
   id: string;
   name: string;
   slug: string;
@@ -19,14 +19,14 @@ export type Location = {
   checkpoints?: Checkpoint[];
   description: string;
   active: boolean;
-  category: LocationCategory;
-  region: LocationRegion;
+  category: __Location__Category;
+  region: __Location__Region;
 };
 
-export type LocationCompletionWrite = {
-  locationId: string;
-  locationSlug: string;
-  locationName: string;
+export type __Location__CompletionWrite = {
+  __location__Id: string;
+  __location__Slug: string;
+  __location__Name: string;
   userId: string;
 
   completedAt: any;
@@ -51,10 +51,10 @@ export type LocationCompletionWrite = {
   sharedPlatform: string | null;
 };
 
-export type LocationReviewWrite = {
-  locationId: string;
-  locationSlug: string;
-  locationName: string;
+export type __Location__ReviewWrite = {
+  __location__Id: string;
+  __location__Slug: string;
+  __location__Name: string;
   userId: string;
 
   reviewRating: number; // 1–5
@@ -64,7 +64,7 @@ export type LocationReviewWrite = {
 
 export type CompletionMeta = {
   id: string;
-  locationId: string;
+  __location__Id: string;
   isShared: boolean;
   completedAtMs: number | null;
 };

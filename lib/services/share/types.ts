@@ -1,6 +1,6 @@
-export type ShareLocationPayload = {
-  locationId: string;
-  locationName: string;
+export type Share__Location__Payload = {
+  __location__Id: string;
+  __location__Name: string;
   completedAtMs?: number; // optional
   userPhotoUri?: string; // for future use
 };

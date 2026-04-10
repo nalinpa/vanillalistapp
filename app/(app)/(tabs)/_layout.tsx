@@ -8,12 +8,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSession } from "../../../lib/providers/SessionProvider";
 
 const ALL_TABS: Array<{
-  key: "locations" | "progress" | "map" | "account";
+  key: "__locations__" | "progress" | "map" | "account";
   title: string;
   icon: keyof typeof Ionicons.glyphMap;
   activeIcon: keyof typeof Ionicons.glyphMap;
 }> = [
-  { key: "locations", title: "__ENTITY_PLURAL__", icon: "list-outline", activeIcon: "list" },
+  { key: "__locations__", title: "__ENTITY_PLURAL__", icon: "list-outline", activeIcon: "list" },
   {
     key: "progress",
     title: "Progress",
@@ -37,7 +37,7 @@ function KittenTabBar({ state, navigation }: any) {
     [isGuest],
   );
 
-  const activeRouteName = state.routes[state.index]?.name ?? "locations";
+  const activeRouteName = state.routes[state.index]?.name ?? "__locations__";
 
   const visibleActiveIndex = useMemo(() => {
     const idx = visibleTabs.findIndex((t) => t.key === activeRouteName);
@@ -108,7 +108,7 @@ export default function TabsLayout() {
       screenOptions={{ headerShown: false }}
       tabBar={(props) => <KittenTabBar {...props} />}
     >
-      <Tabs.Screen name="locations" options={{ href: "/(tabs)/locations" }} />
+      <Tabs.Screen name="__locations__" options={{ href: "/(tabs)/__locations__" }} />
       <Tabs.Screen
         name="progress"
         options={{ href: session.status === "guest" ? null : "/(tabs)/progress" }}

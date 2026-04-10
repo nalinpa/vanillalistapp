@@ -3,56 +3,56 @@ import { View, StyleSheet } from "react-native";
 import { FlashList, ListRenderItemInfo } from "@shopify/flash-list";
 
 import { CardShell } from "@/components/ui/CardShell";
-import { LocationListItem } from "@/components/location/list/LocationListItem";
+import { __Location__ListItem } from "@/components/__location__/list/__Location__ListItem";
 import { AppText } from "@/components/ui/AppText";
 import { Stack } from "@/components/ui/Stack";
 
-import type { LocationRow } from "@/lib/hooks/useSortedLocationRows";
+import type { __Location__Row } from "@/lib/hooks/useSorted__Location__Rows";
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export function LocationListView({
+export function __Location__ListView({
   rows,
   header,
-  onPressLocation,
+  onPress__Location__,
   completedIds,
   hideCompleted = false,
 }: {
-  rows: LocationRow[];
+  rows: __Location__Row[];
   header?: React.ReactElement<any> | null;
-  onPressLocation: (id: string) => void;
+  onPress__Location__: (id: string) => void;
   completedIds?: Set<string>;
   hideCompleted?: boolean;
 }) {
   const visibleRows = useMemo(() => {
     if (!hideCompleted || !completedIds || completedIds.size === 0) return rows;
-    return rows.filter((r) => !completedIds.has(r.locationData.id));
+    return rows.filter((r) => !completedIds.has(r.__location__Data.id));
   }, [rows, hideCompleted, completedIds]);
 
   const renderItem = useCallback(
-    ({ item, index }: ListRenderItemInfo<LocationRow>) => {
-      const { locationData, distanceMeters } = item;
-      const isCompleted = completedIds?.has(locationData.id) ?? false;
+    ({ item, index }: ListRenderItemInfo<__Location__Row>) => {
+      const { __location__Data, distanceMeters } = item;
+      const isCompleted = completedIds?.has(__location__Data.id) ?? false;
 
       return (
-        <LocationListItem
-          id={locationData.id}
-          name={locationData.name}
-          description={locationData.description}
+        <__Location__ListItem
+          id={__location__Data.id}
+          name={__location__Data.name}
+          description={__location__Data.description}
           distanceMeters={distanceMeters}
           completed={isCompleted}
-          onPress={onPressLocation}
+          onPress={onPress__Location__}
           index={index}
         />
       );
     },
-    [onPressLocation, completedIds],
+    [onPress__Location__, completedIds],
   ); // Dependencies are critical here
 
   return (
     <FlashList
       data={visibleRows}
-      keyExtractor={(item) => item.locationData.id}
+      keyExtractor={(item) => item.__location__Data.id}
       renderItem={renderItem} // Reference to memoized function
       // @ts-ignore - FlashList typing quirk
       estimatedItemSize={142}

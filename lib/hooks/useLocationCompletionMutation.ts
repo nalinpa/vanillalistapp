@@ -3,13 +3,13 @@ import { completionService } from "@/lib/services/completionService";
 import { useSyncStore } from "@/lib/store/useSyncStore";
 import * as Sentry from "@sentry/react-native";
 
-export function useLocationCompletionMutation() {
+export function use__Location__CompletionMutation() {
   const queryClient = useQueryClient();
   const addToQueue = useSyncStore((state) => state.addToQueue);
   const processQueue = useSyncStore((state) => state.processQueue);
 
   const mutation = useMutation({
-    mutationFn: async (args: Parameters<typeof completionService.completeLocation>[0]) => {
+    mutationFn: async (args: Parameters<typeof completionService.complete__Location__>[0]) => {
       // 1. Snapshot the visit into the Persistent Offline Queue immediately
       addToQueue(args);
 
@@ -21,19 +21,19 @@ export function useLocationCompletionMutation() {
     },
     onSuccess: (_, args) => {
       const uid = args.uid;
-      const locationId = args.location.id;
+      const __location__Id = args.__location__.id;
 
       // 3. OPTIMISTIC INVALIDATION
       // Even though the sync might be pending, we tell React Query to refetch
       // or we manually update the cache so the 'Visited' checkmark appears.
       queryClient.invalidateQueries({ queryKey: ["myCompletions", uid] });
-      queryClient.invalidateQueries({ queryKey: ["location", locationId] });
+      queryClient.invalidateQueries({ queryKey: ["__location__", __location__Id] });
       queryClient.invalidateQueries({ queryKey: ["appData"] });
     },
   });
 
-  const completeLocation = async (
-    args: Parameters<typeof completionService.completeLocation>[0],
+  const complete__Location__ = async (
+    args: Parameters<typeof completionService.complete__Location__>[0],
   ) => {
     try {
       // This is now effectively "Save to Queue & Notify UI"
@@ -46,7 +46,7 @@ export function useLocationCompletionMutation() {
   };
 
   return {
-    completeLocation,
+    complete__Location__,
     loading: mutation.isPending,
     err: mutation.error?.message ?? null,
     reset: mutation.reset,

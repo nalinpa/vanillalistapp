@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Location from "expo-location";
+import * as Location from "expo-__location__";
 
 // --- 1. Guest Store ---
 interface GuestState {
@@ -18,7 +18,7 @@ export const useGuestStore = create<GuestState>()(
   ),
 );
 
-// --- 2. Location Store (Memory only - GPS tracking) ---
+// --- 2. Location Store (Memory only) ---
 interface LocationState {
   location: Location.LocationObject | null;
   setLocation: (loc: Location.LocationObject | null) => void;
@@ -27,19 +27,20 @@ interface LocationState {
 export const useLocationStore = create<LocationState>((set) => ({
   location: null,
 
-  // Directly updates the global location.
+  // Directly updates the global location. No teleport gates here anymore!
   setLocation: (newLoc) => set({ location: newLoc }),
 }));
 
+
 // --- 3. Filters Store ---
-export type LocationFiltersValue = {
+export type __Location__FiltersValue = {
   category: string | null;
   region: string | null;
   hideCompleted: boolean;
 };
 interface FiltersState {
-  filters: LocationFiltersValue;
-  setFilters: (filters: LocationFiltersValue) => void;
+  filters: __Location__FiltersValue;
+  setFilters: (filters: __Location__FiltersValue) => void;
 }
 export const useFiltersStore = create<FiltersState>()(
   persist(
@@ -47,7 +48,7 @@ export const useFiltersStore = create<FiltersState>()(
       filters: { hideCompleted: false, region: "all", category: "all" },
       setFilters: (filters) => set({ filters }),
     }),
-    { name: "location-filters", storage: createJSONStorage(() => AsyncStorage) },
+    { name: "__location__-filters", storage: createJSONStorage(() => AsyncStorage) },
   ),
 );
 
@@ -68,30 +69,30 @@ export const useAppSettingsStore = create<AppSettingsState>()(
 
 // --- 5. Map State Store (Memory Only) ---
 interface MapState {
-  selectedLocationId: string | null;
-  setSelectedLocationId: (id: string | null) => void;
+  selected__Location__Id: string | null;
+  setSelected__Location__Id: (id: string | null) => void;
 }
 export const useMapStore = create<MapState>((set) => ({
-  selectedLocationId: null,
-  setSelectedLocationId: (id) => set({ selectedLocationId: id }),
+  selected__Location__Id: null,
+  setSelected__Location__Id: (id) => set({ selected__Location__Id: id }),
 }));
 
 // --- 6. Review Drafts Store ---
 interface DraftsState {
   drafts: Record<string, { rating: number | null; text: string }>;
-  setDraft: (locationId: string, rating: number | null, text: string) => void;
-  clearDraft: (locationId: string) => void;
+  setDraft: (__location__Id: string, rating: number | null, text: string) => void;
+  clearDraft: (__location__Id: string) => void;
 }
 export const useDraftsStore = create<DraftsState>()(
   persist(
     (set) => ({
       drafts: {},
-      setDraft: (locationId, rating, text) =>
-        set((state) => ({ drafts: { ...state.drafts, [locationId]: { rating, text } } })),
-      clearDraft: (locationId) =>
+      setDraft: (__location__Id, rating, text) =>
+        set((state) => ({ drafts: { ...state.drafts, [__location__Id]: { rating, text } } })),
+      clearDraft: (__location__Id) =>
         set((state) => {
           const newDrafts = { ...state.drafts };
-          delete newDrafts[locationId];
+          delete newDrafts[__location__Id];
           return { drafts: newDrafts };
         }),
     }),

@@ -16,52 +16,52 @@ import { useAuthUser } from "@/lib/hooks/useAuthUser";
 import { useLocationStore } from "@/lib/store/index";
 import { useLocationData } from "@/lib/hooks/useLocationData";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
-import { useLocationCompletionMutation } from "@/lib/hooks/useLocationCompletionMutation";
+import { use__Location__CompletionMutation } from "@/lib/hooks/use__Location__CompletionMutation";
 
 interface SuccessScreenProps {
-  locationId: string;
+  __location__Id: string;
   onClose: () => void;
   onShare: () => void;
 }
 
-export function SuccessScreen({ locationId, onClose, onShare }: SuccessScreenProps) {
-  const [triggeredLocationId, setTriggeredLocationId] = useState<string | null>(null);
+export function SuccessScreen({ __location__Id, onClose, onShare }: SuccessScreenProps) {
+  const [triggered__Location__Id, setTriggered__Location__Id] = useState<string | null>(null);
 
   const { user } = useAuthUser();
   const location = useLocationStore((s) => s.location);
 
-  const { locationData, loading: locationLoading, err: locationError } = useLocationData(locationId);
-  const gate = useGPSGate(locationData, location);
-  const { completeLocation, loading: saving } = useLocationCompletionMutation();
+  const { __location__Data, loading: __location__Loading, err: __location__Error } = use__Location__(__location__Id);
+  const gate = useGPSGate(__location__Data, location);
+  const { complete__Location__, loading: saving } = use__Location__CompletionMutation();
 
   useEffect(() => {
-    const isReadyToTrigger = user && locationData && location;
+    const isReadyToTrigger = user && __location__Data && location;
 
-    // Check if we haven't triggered THIS specific location yet
-    if (isReadyToTrigger && triggeredLocationId !== locationId) {
-      setTriggeredLocationId(locationId); // Lock it for this location!
+    // Check if we haven't triggered THIS specific __location__ yet
+    if (isReadyToTrigger && triggered__Location__Id !== __location__Id) {
+      setTriggered__Location__Id(__location__Id); // Lock it for this __location__!
 
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
-      completeLocation({
+      complete__Location__({
         uid: user.uid,
-        locationData: locationData,
+        __location__Data: __location__Data,
         loc: location,
         gate: gate,
       }).then((res) => {
         if (!res.ok) {
-          Sentry.captureMessage("Failed to queue location completion", { level: "error" });
+          Sentry.captureMessage("Failed to queue __location__ completion", { level: "error" });
         }
       });
     }
-  }, [user, locationData, location, triggeredLocationId, locationId, gate, completeLocation]);
+  }, [user, __location__Data, location, triggered__Location__Id, __location__Id, gate, complete__Location__]);
 
-  if (locationLoading || !locationData) {
+  if (__location__Loading || !__location__Data) {
     return (
       <View style={styles.container}>
         <ActivityIndicator color="#FFFFFF" size="large" />
         <AppText style={styles.loadingText}>SAVING YOUR VISIT...</AppText>
-        {locationError && <AppText style={styles.errorText}>Error: {locationError}</AppText>}
+        {__location__Error && <AppText style={styles.errorText}>Error: {__location__Error}</AppText>}
         <AppButton variant="ghost" onPress={onClose} style={styles.cancelButton}>
           <AppText style={styles.whiteText}>CANCEL</AppText>
         </AppButton>
@@ -94,7 +94,7 @@ export function SuccessScreen({ locationId, onClose, onShare }: SuccessScreenPro
 
           <Stack align="center" gap="xs">
             <AppText variant="h3" style={styles.title}>
-              {locationData.name}
+              {__location__Data.name}
             </AppText>
             <AppText variant="label" style={styles.subtitle}>
               YOU MADE IT!

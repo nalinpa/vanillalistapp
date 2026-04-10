@@ -9,22 +9,22 @@ import * as Sentry from "@sentry/react-native";
 
 import { db } from "@/lib/firebase";
 import { COL } from "@/lib/constants/firestore";
-import type { Location } from "@/lib/models";
+import type { __Location__ } from "@/lib/models";
 
 export type CompletionMeta = {
   id: string;
-  locationId: string;
+  __location__Id: string;
   isShared: boolean;
   completedAtMs: number | null;
 };
 
 export const completionService = {
   // ===============================
-  // Complete Location
+  // Complete __Location__
   // ===============================
-  async completeLocation(args: {
+  async complete__Location__(args: {
     uid: string;
-    location: Location;
+    __location__: __Location__;
     loc: LocationObject;
     gate: {
       inRange: boolean;
@@ -36,20 +36,20 @@ export const completionService = {
       checkpointRadius: number | null;
     };
   }) {
-    const { uid, location, loc, gate } = args;
+    const { uid, __location__, loc, gate } = args;
 
     if (!uid) return { ok: false, err: "Missing uid" };
-    if (!location?.id) return { ok: false, err: "Missing location" };
+    if (!__location__?.id) return { ok: false, err: "Missing __location__" };
     if (!gate?.inRange) return { ok: false, err: "Not in range" };
 
-    const completionId = `${uid}_${location.id}`;
-    // Ensure COL.locationCompletions exists in your constants
-    const ref = doc(db, COL.locationCompletions, completionId);
+    const completionId = `${uid}_${__location__.id}`;
+    // Ensure COL.__location__Completions exists in your constants
+    const ref = doc(db, COL.__location__Completions, completionId);
 
     const completionData = {
-      locationId: location.id,
-      locationSlug: location.slug ?? "",
-      locationName: location.name ?? "",
+      __location__Id: __location__.id,
+      __location__Slug: __location__.slug ?? "",
+      __location__Name: __location__.name ?? "",
       userId: uid,
       completedAt: serverTimestamp(),
       accuracyMeters: loc.coords.accuracy ?? null,
@@ -82,7 +82,7 @@ export const completionService = {
       if (e.message !== "FIREBASE_TIMEOUT") {
         Sentry.captureException(e); // Only log to Sentry if it's a real crash, not a timeout
       }
-      return { ok: false, err: e?.message ?? "Failed to complete location" };
+      return { ok: false, err: e?.message ?? "Failed to complete __location__" };
     }
   },
 
@@ -91,16 +91,16 @@ export const completionService = {
   // ===============================
   async confirmShare(args: {
     uid: string;
-    locationId: string;
+    __location__Id: string;
     platform: string | null;
   }) {
-    const { uid, locationId, platform } = args;
+    const { uid, __location__Id, platform } = args;
 
     if (!uid) return { ok: false, err: "Missing uid" };
-    if (!locationId) return { ok: false, err: "Missing locationId" };
+    if (!__location__Id) return { ok: false, err: "Missing __location__Id" };
 
-    const completionId = `${uid}_${locationId}`;
-    const ref = doc(db, COL.locationCompletions, completionId);
+    const completionId = `${uid}_${__location__Id}`;
+    const ref = doc(db, COL.__location__Completions, completionId);
 
     try {
       await updateDoc(ref, {

@@ -10,7 +10,7 @@ import { space } from "@/lib/ui/tokens";
 
 import { goProgressHome } from "@/lib/routes";
 
-export function ShareSuccess({ locationName }: { locationName: string }) {
+export function ShareSuccess({ __location__Name }: { __location__Name: string }) {
   return (
     <View style={styles.container}>
       <CardShell status="basic">
@@ -22,7 +22,7 @@ export function ShareSuccess({ locationName }: { locationName: string }) {
           <VStack gap="xs" align="center">
             <AppText variant="sectionTitle">Nice Work!</AppText>
             <AppText variant="body" style={styles.centerText}>
-              Your visit to {locationName} has been shared.
+              Your visit to {__location__Name} has been shared.
             </AppText>
           </VStack>
           <VStack gap="xs" align="center">

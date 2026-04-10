@@ -9,29 +9,29 @@ import { reviewService } from "@/lib/services/reviewService";
 import { useSession } from "@/lib/providers/SessionProvider";
 
 /**
- * Fetcher for the Location's overall stats (average rating, count).
+ * Fetcher for the __Location__'s overall stats (average rating, count).
  */
-async function fetchLocationStats(locationId: string) {
-  const ref = doc(db, COL.locations, locationId);
+async function fetch__Location__Stats(__location__Id: string) {
+  const ref = doc(db, COL.__locations__, __location__Id);
   const snap = await getDoc(ref);
 
   return snap.exists() ? (snap.data() ?? null) : null;
 }
 
 /**
- * Fetcher for the user's specific review for this location.
+ * Fetcher for the user's specific review for this __location__.
  */
-async function fetchMyReview(uid: string, locationId: string) {
-  const reviewId = `${uid}_${locationId}`;
+async function fetchMyReview(uid: string, __location__Id: string) {
+  const reviewId = `${uid}_${__location__Id}`;
 
-  const ref = doc(db, COL.locationReviews, reviewId);
+  const ref = doc(db, COL.__location__Reviews, reviewId);
   const snap = await getDoc(ref);
 
   // Defensive check: force undefined data to null
   return snap.exists() ? (snap.data() ?? null) : null;
 }
 
-export function useLocationReviewsSummary(locationId: string | null | undefined) {
+export function use__Location__ReviewsSummary(__location__Id: string | null | undefined) {
   const { session } = useSession();
   const queryClient = useQueryClient();
 
@@ -39,13 +39,13 @@ export function useLocationReviewsSummary(locationId: string | null | undefined)
   const userName = auth().currentUser?.displayName || "Unknown User";
 
   const {
-    data: locationData,
-    isLoading: locationLoading,
-    error: locationError,
+    data: __location__Data,
+    isLoading: __location__Loading,
+    error: __location__Error,
   } = useQuery({
-    queryKey: ["location", locationId],
-    queryFn: () => fetchLocationStats(locationId!),
-    enabled: !!locationId,
+    queryKey: ["__location__", __location__Id],
+    queryFn: () => fetch__Location__Stats(__location__Id!),
+    enabled: !!__location__Id,
   });
 
   const {
@@ -53,9 +53,9 @@ export function useLocationReviewsSummary(locationId: string | null | undefined)
     isLoading: reviewLoading,
     error: reviewError,
   } = useQuery({
-    queryKey: ["locationReview", uid, locationId],
-    queryFn: () => fetchMyReview(uid!, locationId!),
-    enabled: !!uid && !!locationId,
+    queryKey: ["__location__Review", uid, __location__Id],
+    queryFn: () => fetchMyReview(uid!, __location__Id!),
+    enabled: !!uid && !!__location__Id,
   });
 
   // Mutation: Saving or Updating a Review
@@ -66,48 +66,46 @@ export function useLocationReviewsSummary(locationId: string | null | undefined)
       return res;
     },
     onSuccess: (_, args) => {
-      // Refresh user review, location stats, and global app data
-      // @ts-ignore - Assuming args.locationId will be updated in your reviewService types
-      queryClient.invalidateQueries({ queryKey: ["locationReview", uid, args.locationId] });
+      // Refresh user review, __location__ stats, and global app data
+      // @ts-ignore - Assuming args.__location__Id will be updated in your reviewService types
+      queryClient.invalidateQueries({ queryKey: ["__location__Review", uid, args.__location__Id] });
       // @ts-ignore
-      queryClient.invalidateQueries({ queryKey: ["location", args.locationId] });
+      queryClient.invalidateQueries({ queryKey: ["__location__", args.__location__Id] });
       queryClient.invalidateQueries({ queryKey: ["appData"] });
     },
   });
 
-  const avgRating = locationData?.avgRating ?? null;
-  const ratingCount = locationData?.ratingCount ?? 0;
+  const avgRating = __location__Data?.avgRating ?? null;
+  const ratingCount = __location__Data?.ratingCount ?? 0;
   const myRating = reviewData?.rating ?? reviewData?.reviewRating ?? null;
   const myText = reviewData?.text ?? reviewData?.reviewText ?? null;
 
-  const loading = session.status === "loading" || locationLoading || reviewLoading;
+  const loading = session.status === "loading" || __location__Loading || reviewLoading;
   const err =
-    (locationError instanceof Error ? locationError.message : null) ??
+    (__location__Error instanceof Error ? __location__Error.message : null) ??
     (reviewError instanceof Error ? reviewError.message : null);
 
   const saveReview = async (args: {
-    locationId?: string | null;
-    locationSlug: string;
-    locationName: string;
+    __location__Id?: string | null;
+    __location__Slug: string;
+    __location__Name: string;
     reviewRating: number | null | undefined;
     reviewText: string | null | undefined;
   }) => {
-    const targetLocationId = args.locationId || locationId;
+    const target__Location__Id = args.__location__Id || __location__Id;
 
     if (session.status === "loading")
       return { ok: false as const, err: "Session not ready" };
     if (session.status !== "authed")
       return { ok: false as const, err: "You must be logged in" };
-    if (!targetLocationId) return { ok: false as const, err: "Missing locationId" };
+    if (!target__Location__Id) return { ok: false as const, err: "Missing __location__Id" };
 
     try {
       await mutation.mutateAsync({
         ...args,
         uid: uid!,
         userName: userName,
-        // Using as any here temporarily in case your reviewService still expects coneId. 
-        // Be sure to update reviewService.saveReview signature!
-        locationId: targetLocationId, 
+        __location__Id: target__Location__Id, 
       } as any);
       return { ok: true as const };
     } catch (e: any) {

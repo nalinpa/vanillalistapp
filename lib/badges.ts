@@ -1,10 +1,10 @@
-import type { LocationCategory, LocationRegion } from "./models";
+import type { __Location__Category, __Location__Region } from "./models";
 
-export type LocationMeta = {
+export type __Location__Meta = {
   id: string;
   active: boolean;
-  category: LocationCategory;
-  region: LocationRegion;
+  category: __Location__Category;
+  region: __Location__Region;
 };
 
 export type BadgeDefinition = {
@@ -28,35 +28,35 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "first_steps",
     name: "First Steps",
-    unlockText: "Visit your first location.",
+    unlockText: "Visit your first __location__.",
     section: "Core",
     icon: "👟",
   },
   {
     id: "explorer",
     name: "Explorer",
-    unlockText: "Visit 5 locations.",
+    unlockText: "Visit 5 __locations__.",
     section: "Core",
     icon: "🧭",
   },
   {
     id: "wayfinder",
     name: "Wayfinder",
-    unlockText: "Visit 10 locations.",
+    unlockText: "Visit 10 __locations__.",
     section: "Core",
     icon: "🗺️",
   },
   {
     id: "halfway_there",
     name: "Halfway There",
-    unlockText: "Visit 20 locations.",
+    unlockText: "Visit 20 __locations__.",
     section: "Core",
     icon: "🧗",
   },
   {
-    id: "location_collector",
-    name: "Location Collector",
-    unlockText: "Visit every active location.",
+    id: "__location___collector",
+    name: "__Location__ Collector",
+    unlockText: "Visit every active __location__.",
     section: "Core",
     icon: "👑",
   },
@@ -79,14 +79,14 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "first_type_a",
     name: "First Type A",
-    unlockText: "Visit your first Type A location.",
+    unlockText: "Visit your first Type A __location__.",
     section: "Types",
     icon: "📍",
   },
   {
     id: "type_a_fan",
     name: "Type A Fan",
-    unlockText: "Visit 10 Type A locations.",
+    unlockText: "Visit 10 Type A __locations__.",
     section: "Types",
     icon: "🎯",
   },
@@ -100,35 +100,35 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "five_type_b",
     name: "Type B Fan",
-    unlockText: "Visit 5 Type B locations.",
+    unlockText: "Visit 5 Type B ____location__s__.",
     section: "Types",
     icon: "🧩",
   },
   {
     id: "all_type_a",
     name: "All Type A",
-    unlockText: "Visit every Type A location.",
+    unlockText: "Visit every Type A __location__.",
     section: "Types",
     icon: "🏆",
   },
   {
     id: "all_type_b",
     name: "All Type B",
-    unlockText: "Visit every Type B location.",
+    unlockText: "Visit every Type B __location__.",
     section: "Types",
     icon: "🏅",
   },
   {
     id: "first_type_c",
     name: "First Type C",
-    unlockText: "Visit your first Type C location.",
+    unlockText: "Visit your first Type C __location__.",
     section: "Types",
     icon: "💧",
   },
   {
     id: "all_type_c",
     name: "All Type C",
-    unlockText: "Visit every Type C location.",
+    unlockText: "Visit every Type C __location__.",
     section: "Types",
     icon: "🌊",
   },
@@ -136,35 +136,35 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "north_master",
     name: "North Master",
-    unlockText: "Visit every location in the North region.",
+    unlockText: "Visit every __location__ in the North region.",
     section: "Regions",
     icon: "🌉",
   },
   {
     id: "central_master",
     name: "Central Master",
-    unlockText: "Visit every location in the Central region.",
+    unlockText: "Visit every __location__ in the Central region.",
     section: "Regions",
     icon: "🏙️",
   },
   {
     id: "east_master",
     name: "East Master",
-    unlockText: "Visit every location in the East region.",
+    unlockText: "Visit every __location__ in the East region.",
     section: "Regions",
     icon: "⛵",
   },
   {
     id: "south_master",
     name: "South Master",
-    unlockText: "Visit every location in the South region.",
+    unlockText: "Visit every __location__ in the South region.",
     section: "Regions",
     icon: "🎡",
   },
   {
     id: "west_master",
     name: "West Master",
-    unlockText: "Visit every location in the West region.",
+    unlockText: "Visit every __location__ in the West region.",
     section: "Regions",
     icon: "🌇",
   },
@@ -191,9 +191,9 @@ export const BADGES: BadgeDefinition[] = [
     icon: "🌟",
   },
   {
-    id: "review_every_location",
+    id: "review_every___location__",
     name: "Reviewed Everything",
-    unlockText: "Review every active location you’ve visited.",
+    unlockText: "Review every active __location__ you’ve visited.",
     section: "Reviews",
     icon: "💯",
   },
@@ -201,7 +201,7 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "completionist",
     name: "Completionist",
-    unlockText: "Visit, share, and review every active location.",
+    unlockText: "Visit, share, and review every active __location__.",
     section: "Completionist",
     icon: "💎",
   },
@@ -214,23 +214,23 @@ function indexBadges(badges: BadgeDefinition[]) {
   return byId;
 }
 
-function countCompleted(locations: LocationMeta[], completedIds: Set<string>) {
+function countCompleted(__locations__: __Location__Meta[], completedIds: Set<string>) {
   let n = 0;
-  for (const c of locations) if (completedIds.has(c.id)) n++;
+  for (const c of __locations__) if (completedIds.has(c.id)) n++;
   return n;
 }
 
-function filterTotal(locations: LocationMeta[], pred: (_c: LocationMeta) => boolean) {
-  return locations.filter(pred);
+function filterTotal(__locations__: __Location__Meta[], pred: (_c: __Location__Meta) => boolean) {
+  return __locations__.filter(pred);
 }
 
 function countCompletedWhere(
-  locations: LocationMeta[],
+  __locations__: __Location__Meta[],
   completedIds: Set<string>,
-  pred: (_c: LocationMeta) => boolean,
+  pred: (_c: __Location__Meta) => boolean,
 ) {
   let n = 0;
-  for (const c of locations) if (pred(c) && completedIds.has(c.id)) n++;
+  for (const c of __locations__) if (pred(c) && completedIds.has(c.id)) n++;
   return n;
 }
 
@@ -240,18 +240,18 @@ function progressToThreshold(current: number, target: number) {
   return { earned: false, label: `${current} / ${target} (${left} to go)`, dist: left };
 }
 
-function timesForLocations(
-  locations: LocationMeta[],
-  completedLocationIds: Set<string>,
-  completedAtByLocationId?: Record<string, number>,
-  pred?: (_c: LocationMeta) => boolean,
+function timesFor____Location__s__(
+  __locations__: __Location__Meta[],
+  completed__Location__Ids: Set<string>,
+  completedAtBy__Location__Id?: Record<string, number>,
+  pred?: (_c: __Location__Meta) => boolean,
 ): number[] {
-  if (!completedAtByLocationId) return [];
+  if (!completedAtBy__Location__Id) return [];
   const out: number[] = [];
-  for (const c of locations) {
-    if (!completedLocationIds.has(c.id)) continue;
+  for (const c of __locations__) {
+    if (!completed__Location__Ids.has(c.id)) continue;
     if (pred && !pred(c)) continue;
-    const t = completedAtByLocationId[c.id];
+    const t = completedAtBy__Location__Id[c.id];
     if (typeof t === "number" && Number.isFinite(t) && t > 0) out.push(t);
   }
   out.sort((a, b) => a - b);
@@ -259,17 +259,17 @@ function timesForLocations(
 }
 
 function timesForReviewed(
-  locations: LocationMeta[],
-  reviewedLocationIds: Set<string>,
-  reviewedAtByLocationId?: Record<string, number>,
-  pred?: (_c: LocationMeta) => boolean,
+  __locations__: __Location__Meta[],
+  reviewed__Location__Ids: Set<string>,
+  reviewedAtBy__Location__Id?: Record<string, number>,
+  pred?: (_c: __Location__Meta) => boolean,
 ): number[] {
-  if (!reviewedAtByLocationId) return [];
+  if (!reviewedAtBy__Location__Id) return [];
   const out: number[] = [];
-  for (const c of locations) {
-    if (!reviewedLocationIds.has(c.id)) continue;
+  for (const c of __locations__) {
+    if (!reviewed__Location__Ids.has(c.id)) continue;
     if (pred && !pred(c)) continue;
-    const t = reviewedAtByLocationId[c.id];
+    const t = reviewedAtBy__Location__Id[c.id];
     if (typeof t === "number" && Number.isFinite(t) && t > 0) out.push(t);
   }
   out.sort((a, b) => a - b);
@@ -283,16 +283,16 @@ function nthTime(sortedTimesAsc: number[], n: number): number | null {
 }
 
 function maxTimeForAllRequired(
-  requiredLocations: LocationMeta[],
+  required____Locations____: __Location__Meta[],
   hasIds: Set<string>,
   atById?: Record<string, number>,
 ): number | null {
   if (!atById) return null;
-  if (requiredLocations.length === 0) return null;
+  if (required__Locations__.length === 0) return null;
 
   let max = 0;
 
-  for (const c of requiredLocations) {
+  for (const c of required__Location__s) {
     if (!hasIds.has(c.id)) return null;
     const t = atById[c.id];
     if (typeof t !== "number" || !Number.isFinite(t) || t <= 0) return null;
@@ -305,82 +305,82 @@ function maxTimeForAllRequired(
 export function getBadgeState(
   badges: BadgeDefinition[],
   {
-    locations,
-    completedLocationIds,
+    __locations__,
+    completed__Location__Ids,
     shareCount,
-    sharedLocationIds,
-    reviewedLocationIds,
+    shared__Location__Ids,
+    reviewed__Location__Ids,
     reviewCount,
-    completedAtByLocationId,
-    reviewedAtByLocationId,
+    completedAtBy__Location__Id,
+    reviewedAtBy__Location__Id,
   }: {
-    locations: LocationMeta[];
-    completedLocationIds: Set<string>;
+    __locations__: __Location__Meta[];
+    completed__Location__Ids: Set<string>;
     shareCount: number;
-    sharedLocationIds: Set<string>;
-    reviewedLocationIds: Set<string>;
+    shared__Location__Ids: Set<string>;
+    reviewed__Location__Ids: Set<string>;
     reviewCount: number;
-    completedAtByLocationId?: Record<string, number>;
-    reviewedAtByLocationId?: Record<string, number>;
+    completedAtBy__Location__Id?: Record<string, number>;
+    reviewedAtBy__Location__Id?: Record<string, number>;
   },
 ) {
   const badgeById = indexBadges(badges);
-  const activeLocations = locations.filter((c) => c.active);
+  const active__Locations__ = __locations__.filter((c) => c.active);
 
-  const totalAll = activeLocations.length;
-  const doneAll = countCompleted(activeLocations, completedLocationIds);
+  const totalAll = active__Locations__.length;
+  const doneAll = countCompleted(active__Locations__, completedLocationIds);
 
-  const totalTypeA = filterTotal(activeLocations, (c) => c.category === "type_a").length;
+  const totalTypeA = filterTotal(active__Locations__, (c) => c.category === "type_a").length;
   const doneTypeA = countCompletedWhere(
-    activeLocations,
-    completedLocationIds,
+    active__Locations__,
+    completed__Location__Ids,
     (c) => c.category === "type_a",
   );
 
-  const totalTypeB = filterTotal(activeLocations, (c) => c.category === "type_b").length;
+  const totalTypeB = filterTotal(active__Locations__, (c) => c.category === "type_b").length;
   const doneTypeB = countCompletedWhere(
-    activeLocations,
-    completedLocationIds,
+    active__Locations__,
+    completed__Location__Ids,
     (c) => c.category === "type_b",
   );
 
-  const totalTypeC = filterTotal(activeLocations, (c) => c.category === "type_c").length;
+  const totalTypeC = filterTotal(active__Locations__, (c) => c.category === "type_c").length;
   const doneTypeC = countCompletedWhere(
-    activeLocations,
-    completedLocationIds,
+    active__Locations__,
+    completed__Location__Ids,
     (c) => c.category === "type_c",
   );
 
-  const regions: LocationRegion[] = ["north", "central", "east", "south", "west"];
+  const regions: __Location__Region[] = ["north", "central", "east", "south", "west"];
 
-  const regionTotals: Record<LocationRegion, number> = {
-    north: filterTotal(activeLocations, (c) => c.region === "north").length,
-    central: filterTotal(activeLocations, (c) => c.region === "central").length,
-    east: filterTotal(activeLocations, (c) => c.region === "east").length,
-    south: filterTotal(activeLocations, (c) => c.region === "south").length,
-    west: filterTotal(activeLocations, (c) => c.region === "west").length,
+  const regionTotals: Record<__Location__Region, number> = {
+    north: filterTotal(active__Locations__, (c) => c.region === "north").length,
+    central: filterTotal(active__Locations__, (c) => c.region === "central").length,
+    east: filterTotal(active__Locations__, (c) => c.region === "east").length,
+    south: filterTotal(active__Locations__, (c) => c.region === "south").length,
+    west: filterTotal(active__Locations__, (c) => c.region === "west").length,
   };
 
-  const regionDone: Record<LocationRegion, number> = {
+  const regionDone: Record<__Location__Region, number> = {
     north: countCompletedWhere(
-      activeLocations,
-      completedLocationIds,
+      active__Locations__,
+      completed__Location__Ids,
       (c) => c.region === "north",
     ),
     central: countCompletedWhere(
-      activeLocations,
-      completedLocationIds,
+      active__Location__s,
+      completed__Location__Ids,
       (c) => c.region === "central",
     ),
-    east: countCompletedWhere(activeLocations, completedLocationIds, (c) => c.region === "east"),
+    east: countCompletedWhere(active__Locations__, completedLocationIds, (c) => c.region === "east"),
     south: countCompletedWhere(
-      activeLocations,
-      completedLocationIds,
+      active____Location__s__,
+      completed__Location__Ids,
       (c) => c.region === "south",
     ),
     west: countCompletedWhere(
-      activeLocations,
-      completedLocationIds,
+      active__Locations__,
+      completed__Location__Ids,
       (c) => c.region === "west",
     ),
   };
@@ -429,7 +429,7 @@ export function getBadgeState(
     const earned = totalAll > 0 && doneAll >= totalAll;
     const label = !earned && totalAll > 0 ? `${doneAll} / ${totalAll}` : null;
     const dist = earned ? 0 : totalAll > 0 ? totalAll - doneAll : null;
-    setProgress("location_collector", earned, label, dist);
+    setProgress("__location___collector", earned, label, dist);
   }
 
   // Social Progress
@@ -524,23 +524,23 @@ export function getBadgeState(
     setProgress("trusted_reviewer", p.earned, p.label, p.dist);
   }
   {
-    const total = activeLocations.length;
-    const done = countCompleted(activeLocations, reviewedLocationIds);
+    const total = active__Locations__.length;
+    const done = countCompleted(active__Locations__, reviewed__Location__Ids);
     const earned = total > 0 && done >= total;
     const label = !earned && total > 0 ? `${done} / ${total}` : null;
     const dist = total > 0 ? total - done : null;
-    setProgress("review_every_location", earned, label, dist);
+    setProgress("review_every___location__", earned, label, dist);
   }
 
   // Completionist
   {
-    const total = activeLocations.length;
+    const total = active__Locations__.length;
     let done = 0;
-    for (const c of activeLocations) {
+    for (const c of active__Locations__) {
       if (
-        completedLocationIds.has(c.id) &&
-        sharedLocationIds.has(c.id) &&
-        reviewedLocationIds.has(c.id)
+        completed__Location__Ids.has(c.id) &&
+        shared__Location__Ids.has(c.id) &&
+        reviewed__Location__Ids.has(c.id)
       ) {
         done++;
       }
@@ -560,35 +560,35 @@ export function getBadgeState(
   }
 
   // Gather timestamp data to find the single most recently unlocked badge
-  const allActiveTimes = timesForLocations(
-    activeLocations,
-    completedLocationIds,
-    completedAtByLocationId,
+  const allActiveTimes = timesFor__Locations__(
+    active__Locations__,
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
   );
 
-  // Calculate a global fallback time (the time of your most recently completed location)
+  // Calculate a global fallback time (the time of your most recently completed __location__)
   const globalLatestTime =
     allActiveTimes.length > 0 ? allActiveTimes[allActiveTimes.length - 1] : 0;
 
-  const typeATimes = timesForLocations(
-    activeLocations,
-    completedLocationIds,
-    completedAtByLocationId,
+  const typeATimes = timesFor__Locations__(
+    active__Locations__,
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
     (c) => c.category === "type_a",
   );
-  const typeBTimes = timesForLocations(
-    activeLocations,
-    completedLocationIds,
-    completedAtByLocationId,
+  const typeBTimes = timesFor__Locations__(
+    active__Locations__,
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
     (c) => c.category === "type_b",
   );
-  const typeCTimes = timesForLocations(
-    activeLocations,
-    completedLocationIds,
-    completedAtByLocationId,
+  const typeCTimes = timesFor__Locations__(
+    active__Locations__,
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
     (c) => c.category === "type_c",
   );
-  const reviewTimes = timesForReviewed(activeLocations, reviewedLocationIds, reviewedAtByLocationId);
+  const reviewTimes = timesForReviewed(active__Locations__, reviewedLocationIds, reviewedAtByLocationId);
 
   const unlockAtByBadgeId: Record<string, number | null> = Object.create(null);
 
@@ -596,31 +596,31 @@ export function getBadgeState(
   unlockAtByBadgeId["explorer"] = nthTime(allActiveTimes, 5);
   unlockAtByBadgeId["wayfinder"] = nthTime(allActiveTimes, 10);
   unlockAtByBadgeId["halfway_there"] = nthTime(allActiveTimes, 20);
-  unlockAtByBadgeId["location_collector"] = maxTimeForAllRequired(
-    activeLocations,
-    completedLocationIds,
-    completedAtByLocationId,
+  unlockAtByBadgeId["__location___collector"] = maxTimeForAllRequired(
+    active__Locations__,
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
   );
 
   unlockAtByBadgeId["first_type_a"] = nthTime(typeATimes, 1);
   unlockAtByBadgeId["type_a_fan"] = nthTime(typeATimes, 10); 
   unlockAtByBadgeId["all_type_a"] = maxTimeForAllRequired(
-    activeLocations.filter((c) => c.category === "type_a"),
-    completedLocationIds,
-    completedAtByLocationId,
+    active__Locations__.filter((c) => c.category === "type_a"),
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
   );
   unlockAtByBadgeId["first_type_b"] = nthTime(typeBTimes, 1);
   unlockAtByBadgeId["five_type_b"] = nthTime(typeBTimes, 5);
   unlockAtByBadgeId["all_type_b"] = maxTimeForAllRequired(
-    activeLocations.filter((c) => c.category === "type_b"),
-    completedLocationIds,
-    completedAtByLocationId,
+    active__Locations__.filter((c) => c.category === "type_b"),
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
   );
   unlockAtByBadgeId["first_type_c"] = nthTime(typeCTimes, 1);
   unlockAtByBadgeId["all_type_c"] = maxTimeForAllRequired(
-    activeLocations.filter((c) => c.category === "type_c"),
-    completedLocationIds,
-    completedAtByLocationId,
+    active__Locations__.filter((c) => c.category === "type_c"),
+    completed__Location__Ids,
+    completedAtBy__Location__Id,
   );
 
   for (const r of regions) {
@@ -635,19 +635,19 @@ export function getBadgeState(
               ? "south_master"
               : "west_master";
     unlockAtByBadgeId[id] = maxTimeForAllRequired(
-      activeLocations.filter((c) => c.region === r),
-      completedLocationIds,
-      completedAtByLocationId,
+      active__Locations__.filter((c) => c.region === r),
+      completed__Location__Ids,
+      completedAtBy__Location__Id,
     );
   }
 
   unlockAtByBadgeId["first_review"] = nthTime(reviewTimes, 1);
   unlockAtByBadgeId["critic"] = nthTime(reviewTimes, 5);
   unlockAtByBadgeId["trusted_reviewer"] = nthTime(reviewTimes, 10);
-  unlockAtByBadgeId["review_every_location"] = maxTimeForAllRequired(
-    activeLocations,
-    reviewedLocationIds,
-    reviewedAtByLocationId,
+  unlockAtByBadgeId["review_every___location__"] = maxTimeForAllRequired(
+    active__Locations__,
+    reviewed__Location__Ids,
+    reviewedAtBy__Location__Id,
   );
 
   {
@@ -656,9 +656,9 @@ export function getBadgeState(
       unlockAtByBadgeId["completionist"] = null;
     } else {
       let max = 0;
-      for (const c of activeLocations) {
-        const t1 = completedAtByLocationId?.[c.id] ?? 0;
-        const t2 = reviewedAtByLocationId?.[c.id] ?? 0;
+      for (const c of active__Locations__) {
+        const t1 = completedAtBy__Location__Id?.[c.id] ?? 0;
+        const t2 = reviewedAtBy__Location__Id?.[c.id] ?? 0;
         const t = Math.max(t1, t2);
         if (t > max) max = t;
       }

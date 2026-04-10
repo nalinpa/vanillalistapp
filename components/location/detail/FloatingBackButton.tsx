@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { MotiView } from "moti";
 import { AppButton } from "@/components/ui/AppButton";
 import { AppText } from "@/components/ui/AppText";
-import { goLocationsHome } from "@/lib/routes";
+import { go__Locations__Home } from "@/lib/routes";
 import { Row } from "@/components/ui/Row";
 
 export function FloatingBackButton({ visible = true }: { visible?: boolean }) {
@@ -25,7 +25,7 @@ export function FloatingBackButton({ visible = true }: { visible?: boolean }) {
         tint="dark"
         style={styles.blurContainer}
       >
-        <AppButton variant="ghost" size="sm" onPress={goLocationsHome} style={styles.backBtn}>
+        <AppButton variant="ghost" size="sm" onPress={go__Locations__Home} style={styles.backBtn}>
           <Row>
             <ArrowLeft size={18} color="#ffffff" />
             <AppText variant="label" style={styles.backText}>
