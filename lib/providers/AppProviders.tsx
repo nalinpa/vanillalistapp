@@ -1,0 +1,34 @@
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PortalHost } from "@rn-primitives/portal";
+
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+// Make sure to rename this in your kitten-theme.ts file
+import { customTheme } from "@/lib/kitten-theme";
+
+import { SessionProvider } from "@/lib/providers/SessionProvider";
+import { LocationProvider } from "./LocationProvider";
+import { DataProvider } from "./DataProvider";
+import { QueryProvider } from "./QueryProvider";
+
+export function AppProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <SafeAreaProvider>
+      <IconRegistry icons={EvaIconsPack} />
+
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
+        <QueryProvider>
+          <SessionProvider>
+            <DataProvider>
+              <LocationProvider>{children}</LocationProvider>
+            </DataProvider>
+          </SessionProvider>
+        </QueryProvider>
+        {/* Portals should live outside session/provider remount cycles */}
+        <PortalHost />
+      </ApplicationProvider>
+    </SafeAreaProvider>
+  );
+}

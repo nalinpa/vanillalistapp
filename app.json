@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "App Name Placeholder",
+    "slug": "app-slug-placeholder",
+    "extra": {
+      "eas": {
+        "projectId": "your-eas-project-id-placeholder"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-eas-project-id-placeholder"
+    },
+    "android": {
+      "package": "com.yourname.appname",
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F8FAFC"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_ANDROID_MAPS_API_KEY_HERE"
+        }
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourname.appname",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMapsApiKey": "YOUR_IOS_MAPS_API_KEY_HERE"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs camera access to capture photos of your activities.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to save and share your moments.",
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to verify your arrival at designated points of interest."
+      }
+    }
+  }
+}
