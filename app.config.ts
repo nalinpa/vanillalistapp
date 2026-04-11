@@ -3,9 +3,9 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "App Name Placeholder",
-  slug: "app-slug-placeholder",
-  scheme: "app-scheme-placeholder",
+  name: "__AppName__",
+  slug: "__AppSlug__",
+  scheme: "__AppScheme__",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -19,7 +19,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
 
   ios: {
-    bundleIdentifier: "com.yourname.appname",
+    bundleIdentifier: "__BundleIdentifier__",
     supportsTablet: false,
     googleServicesFile: process.env.GOOGLE_SERVICES_PLIST ?? "./GoogleService-Info.plist",
     infoPlist: {
@@ -34,7 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
 
   android: {
-    package: "com.yourname.appname",
+    package: "__BundleIdentifier__",
     versionCode: 1,
     googleServicesFile: "./google-services.json",
     adaptiveIcon: {
@@ -59,7 +59,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         url: "https://sentry.io/",
         project: "react-native",
-        organization: "your-org-placeholder",
+        organization: "__SentryOrg__",
       },
     ],
     [
@@ -92,9 +92,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ],
 
   extra: {
-    eas: {
-      projectId: "your-eas-project-id-placeholder",
-    },
+    // eas: {
+    //   projectId: "__EasProjectId__",
+    // },
     firebase: {
       apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
       authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
