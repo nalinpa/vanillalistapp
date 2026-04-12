@@ -100,7 +100,7 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "five_type_b",
     name: "Type B Fan",
-    unlockText: "Visit 5 Type B ____location__s__.",
+    unlockText: "Visit 5 Type B __locations__.",
     section: "Types",
     icon: "🧩",
   },
@@ -240,7 +240,7 @@ function progressToThreshold(current: number, target: number) {
   return { earned: false, label: `${current} / ${target} (${left} to go)`, dist: left };
 }
 
-function timesFor____Location__s__(
+function timesFor__Locations__(
   __locations__: __Location__Meta[],
   completed__Location__Ids: Set<string>,
   completedAtBy__Location__Id?: Record<string, number>,
@@ -283,7 +283,7 @@ function nthTime(sortedTimesAsc: number[], n: number): number | null {
 }
 
 function maxTimeForAllRequired(
-  required____Locations____: __Location__Meta[],
+  required__Locations___: __Location__Meta[],
   hasIds: Set<string>,
   atById?: Record<string, number>,
 ): number | null {
@@ -374,7 +374,7 @@ export function getBadgeState(
     ),
     east: countCompletedWhere(active__Locations__, completedLocationIds, (c) => c.region === "east"),
     south: countCompletedWhere(
-      active____Location__s__,
+      active__Locations__,
       completed__Location__Ids,
       (c) => c.region === "south",
     ),

@@ -17,27 +17,22 @@ export type BadgeTileItem = {
 type BadgesData = {
   loading: boolean;
   err: string;
-
-  entitiesMeta: __ENTITY__Meta[];
+  __entities__Meta: __ENTITY__Meta[];
   completedEntityIds: Set<string>;
   shareBonusCount: number;
   sharedEntityIds: Set<string>;
   completedAtByEntityId: Record<string, number>;
-
   reviewedEntityIds: Set<string>;
   reviewCount: number;
   reviewedAtByEntityId: Record<string, number>;
-
-  entities: __ENTITY__[];
+  __entities__: __ENTITY__[];
   uncompletedEntities: __ENTITY__[];
-
   badgeState: {
     earnedIds: Set<string>;
     progressById: Record<string, BadgeProgress>;
     nextUp: BadgeProgress | null;
     recentlyUnlocked: BadgeProgress[];
   };
-
   badgeTotals: { unlocked: number; total: number };
   badgeItems: BadgeTileItem[];
 };
@@ -51,9 +46,9 @@ export function useBadgesData(): BadgesData {
   } = useAppData();
 
   const { 
-    __ENTITY_PLURAL_LOWER__: entities, 
-    loading: entitiesLoading, 
-    err: entitiesErr 
+    __ENTITY_PLURAL_LOWER__: __entities__, 
+    loading: __entities__Loading, 
+    err: __entities__Err 
   } = __ENTITY_PLURAL_LOWER__Data;
 
   const completedEntityIds = my.completedEntityIds;
@@ -66,28 +61,28 @@ export function useBadgesData(): BadgesData {
   const reviewedAtByEntityId = reviews.reviewedAtByEntityId;
 
   const mergedErr = useMemo(() => {
-    return entitiesErr || my.err || reviews.err;
-  }, [entitiesErr, my.err, reviews.err]);
+    return __entities__Err || my.err || reviews.err;
+  }, [__entities__Err, my.err, reviews.err]);
 
-  const loading = entitiesLoading || my.loading || reviews.loading;
+  const loading = __entities__Loading || my.loading || reviews.loading;
 
-  const entitiesMeta: __ENTITY__Meta[] = useMemo(() => {
-    return entities.map((e) => ({
+  const __entities__Meta: __ENTITY__Meta[] = useMemo(() => {
+    return __entities__.map((e) => ({
       id: e.id,
       active: e.active,
       category: e.category,
       region: e.region,
     }));
-  }, [entities]);
+  }, [__entities__]);
 
   const uncompletedEntities = useMemo(() => {
-    if (!completedEntityIds.size) return entities;
-    return entities.filter((e) => !completedEntityIds.has(e.id));
-  }, [entities, completedEntityIds]);
+    if (!completedEntityIds.size) return __entities__;
+    return __entities__.filter((e) => !completedEntityIds.has(e.id));
+  }, [__entities__, completedEntityIds]);
 
   const badgeState = useMemo(() => {
     return getBadgeState(BADGES, {
-      entities: entitiesMeta,
+      __entities__: __entities__Meta,
       completedEntityIds,
       shareBonusCount,
       sharedEntityIds,
@@ -97,7 +92,7 @@ export function useBadgesData(): BadgesData {
       reviewedAtByEntityId,
     });
   }, [
-    entitiesMeta,
+    __entities__Meta,
     completedEntityIds,
     shareBonusCount,
     sharedEntityIds,
@@ -130,8 +125,8 @@ export function useBadgesData(): BadgesData {
   return {
     loading,
     err: mergedErr,
-    entities,
-    entitiesMeta,
+    __entities__,
+    __entities__Meta,
     uncompletedEntities,
     completedEntityIds,
     shareBonusCount,

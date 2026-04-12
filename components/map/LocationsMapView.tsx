@@ -19,7 +19,7 @@ export type __Location__MapPoint = {
   radiusMeters?: number | null;
 };
 
-export const __Locations__MapView = React.memo(function ____Location__s__MapView({
+export const __Locations__MapView = React.memo(function __Locations__MapView({
   __locations__,
   completedIds,
   initialRegion,

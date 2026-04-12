@@ -24,7 +24,7 @@ async function fetch__Location__(__location__Id: string): Promise<__Location__ |
   } as __Location__;
 }
 
-export function use__Location__Item(__location__Id: string | null | undefined) {
+export function use__Location__(__location__Id: string | null | undefined) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["__location__", __location__Id],
     queryFn: () => fetch__Location__(__location__Id!),

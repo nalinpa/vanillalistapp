@@ -3,8 +3,8 @@ import { useAppData } from "@/lib/providers/DataProvider";
 import { useLocation } from "@/lib/providers/LocationProvider";
 import { nearestCheckpoint } from "@/lib/checkpoints";
 
-export function useNearestCheckpoint(____location____Id: string) {
-  const { ____locations__Data } = useAppData();
+export function useNearestCheckpoint(__location__Id: string) {
+  const { __locations__Data } = useAppData();
   const { location: userLoc } = useLocation();
 
   return useMemo(() => {

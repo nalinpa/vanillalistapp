@@ -5,7 +5,7 @@ import type { __Location__ } from "@/lib/models";
 import { nearestCheckpoint } from "@/lib/checkpoints";
 
 export type NearestUncompletedResult = {
-  ____location____: __Location__;
+  __location__: __Location__;
   distanceMeters: number | null;
 };
 

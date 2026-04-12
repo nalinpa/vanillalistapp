@@ -26,14 +26,14 @@ export function useSorted__Location__Rows(
 
     // Only if we have NO location whatsoever do we do Name Sort
     if (!activeLoc) {
-      return [...____location__s__]
+      return [...__locations__]
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((__location__) => ({ __location__, distanceMeters: null }));
     }
 
     const { latitude, longitude } = activeLoc.coords;
 
-    const rows = ____location__s__.map((__location__) => ({
+    const rows = __locations__.map((__location__) => ({
       __location__,
       distanceMeters: nearestCheckpoint(__location__, latitude, longitude).distanceMeters,
     }));
@@ -53,5 +53,5 @@ export function useSorted__Location__Rows(
     });
 
     return rows;
-  }, [____location__s__, userLoc]);
+  }, [__locations__, userLoc]);
 }

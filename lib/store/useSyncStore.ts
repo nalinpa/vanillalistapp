@@ -53,7 +53,7 @@ export const useSyncStore = create<SyncState>()(
             // Log true crashes to Sentry with extra context
             Sentry.captureException(error, {
               tags: { context: "SyncEngine" },
-              extra: { ____location____Name: visit.____location____.name, ____location____Id: visit.____location____.id },
+              extra: { __location__Name: visit.__location__.name, __location__Id: visit.__location__.id },
             });
             remainingQueue.push(visit);
           }
@@ -63,7 +63,7 @@ export const useSyncStore = create<SyncState>()(
       },
     }),
     {
-      name: "____location____-sync-storage-v1",
+      name: "__location__-sync-storage-v1",
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (state) => ({ queue: state.queue }),
     },

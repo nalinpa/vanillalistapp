@@ -78,7 +78,7 @@ function AuthedProgress() {
     return { total, completed, percent };
   }, [__locations__, my.completed__Location__Ids]);
 
-  const nearestUncompleted = useNearestUncompleted(__locations__, my.completed____Location____Ids, loc);
+  const nearestUncompleted = useNearestUncompleted(__locations__, my.completed__Location__Ids, loc);
 
   const __locations__ToReview = useMemo(() => {
     return __locations__.filter(
@@ -125,7 +125,7 @@ function AuthedProgress() {
         />
 
         <Section>
-          <NearestUncompletedCard
+          <NearestUnvisitedCard
             __location__={nearestUncompleted?.__location__}
             distanceMeters={nearestUncompleted?.distanceMeters}
             locErr={locErr}

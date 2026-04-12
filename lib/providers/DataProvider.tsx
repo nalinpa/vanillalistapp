@@ -9,7 +9,7 @@ type CompletionsData = ReturnType<typeof useMyCompletions>;
 type ReviewsData = ReturnType<typeof useMyReviews>;
 
 interface AppDataContextType {
-  ____location__s__Data: __Locations__Data;
+  __locations__Data: __Locations__Data;
   completionsData: CompletionsData;
   reviewsData: ReviewsData;
 }
@@ -18,18 +18,18 @@ const AppDataContext = createContext<AppDataContextType | null>(null);
 
 export function DataProvider({ children }: { children: React.ReactNode }) {
   // These hooks mount their onSnapshot listeners EXACTLY ONCE here
-  const ____location__s__Data = use__Locations__();
+  const __locations__Data = use__Locations__();
   const completionsData = useMyCompletions();
   const reviewsData = useMyReviews();
 
   // Memoize the value to prevent unnecessary re-renders across the app
   const value = useMemo(
     () => ({
-      ____location__s__Data,
+      __locations__Data,
       completionsData,
       reviewsData,
     }),
-    [____location__s__Data, completionsData, reviewsData],
+    [__locations__Data, completionsData, reviewsData],
   );
 
   return <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>;
