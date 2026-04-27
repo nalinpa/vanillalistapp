@@ -13,7 +13,7 @@ import { AppText } from "@/components/ui/AppText";
 import { AppButton } from "@/components/ui/AppButton";
 
 import { useSession } from "@/lib/providers/SessionProvider";
-import { auth } from "@/lib/firebase";
+import { auth, signOut } from "@/lib/firebase";
 import { userService } from "@/lib/services/userService";
 import { space } from "@/lib/ui/tokens";
 
@@ -25,7 +25,7 @@ export default function AccountScreen() {
 
   const handleLogout = async () => {
     await disableGuest();
-    await auth.signOut();
+    await signOut(auth);
     router.replace("/login");
   };
 

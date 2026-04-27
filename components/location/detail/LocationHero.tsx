@@ -14,7 +14,7 @@ function prettyLabel(s: string) {
   return s?.length ? s[0].toUpperCase() + s.slice(1) : s;
 }
 
-export function __Location__Hero({ __location__Data, completed }: { ____location____Data: __Location__Data; completed: boolean }) {
+export function __Location__Hero({ __location__Data, completed }: { __location__Data: __Location__Data; completed: boolean }) {
   const metaLabel = `${prettyLabel(__location__Data.region)} • ${prettyLabel(__location__Data.category)}`;
   const desc = __location__Data.description?.trim();
 
