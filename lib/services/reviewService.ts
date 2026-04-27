@@ -106,7 +106,7 @@ export const reviewService = {
 
     const reviewId = `${uid}_${String(__location__Id)}`;
     const reviewRef = doc(db, COL.__location__Reviews, reviewId);
-    const __location__Ref = doc(db, COL.__location__s__, String(__location__Id));
+    const __location__Ref = doc(db, COL.__locations__, String(__location__Id));
 
     try {
       await runTransaction(db, async (tx) => {

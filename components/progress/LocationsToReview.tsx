@@ -17,16 +17,16 @@ type __Location__Lite = {
 };
 
 export function __Location__sToReviewCard({
-  __location__s,
+  __locations__,
   onOpen__Location__,
 }: {
-  __location__s: __Location__Lite[];
+  __locations__: __Location__Lite[];
   onOpen__Location__: (id: string) => void;
 }) {
-  if (!__location__s || __location__s.length === 0) return null;
+  if (!__locations__ || __locations__.length === 0) return null;
 
-  const visible = __location__s.slice(0, 3);
-  const remaining = __location__s.length - visible.length;
+  const visible = __locations__.slice(0, 3);
+  const remaining = __locations__.length - visible.length;
 
   return (
     <CardShell status="basic">
@@ -37,7 +37,7 @@ export function __Location__sToReviewCard({
             <AppIcon icon={MessageSquarePlus} variant="surf" size={18} />
             <AppText variant="sectionTitle">Pending Reviews</AppText>
           </Row>
-          <Pill status="surf">{__location__s.length}</Pill>
+          <Pill status="surf">{__locations__.length}</Pill>
         </Row>
 
         <AppText variant="body" status="hint">
