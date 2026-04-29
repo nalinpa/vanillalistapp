@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Marker } from "react-native-maps";
 import { __Location__Marker } from "@/components/map/__Location__Marker";
-import type {__ Location__MapPoint__ } from "./__Locations__MapView";
+import type {__Location__MapPoint } from "./__Locations__MapView";
 
 type TrackedMarkerProps = {
   __location__Data: __Location__MapPoint;
