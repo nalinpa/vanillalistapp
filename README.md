@@ -48,33 +48,37 @@ While the script updates code content, you must manually rename the following sp
 
 Rename Folders:
 
-src/components/location/ -> src/components/[entity]/
+ - src/components/location/ -> src/components/[entity]/
 
+ - app/(app)/(tabs)/location/ -> app/(app)/(tabs)/[entity]/
+
+ - app/(app)/(tabs)/location/[locationId]/ -> app/(app)/(tabs)/[entity]/[locationId]
+ 
 Rename Files:
 
-src/lib/hooks/usePublic{locations}Reviews.ts
+ - src/lib/hooks/usePublic{locations}Reviews.ts
 
-src/lib/hooks/use{locations}ReviewsSummary.ts
+ - src/lib/hooks/use{locations}ReviewsSummary.ts
 
-src/lib/hooks/useSorted{locations}Rows.ts
+ - src/lib/hooks/useSorted{locations}Rows.ts
 
-src/lib/hooks/use{locations}.ts
+ - src/lib/hooks/use{locations}.ts
 
-src/lib/hooks/use{location}CompletionMutation.ts
+ - src/lib/hooks/use{location}CompletionMutation.ts
 
-src/components/map/{locations}MapView.tsx
+ - src/components/map/{locations}MapView.tsx
 
-src/components/map/{location}Marker.tsx
+ - src/components/map/{location}Marker.tsx
 
-src/components/[entity]/list/{location}ListView.tsx
+ - src/components/[entity]/list/{location}ListView.tsx
 
-src/components/[entity]/list/{location}ListHeader.tsx
+ - src/components/[entity]/list/{location}ListHeader.tsx
 
-src/components/[entity]/list/{location}FiltersCard.tsx
+ - src/components/[entity]/list/{location}FiltersCard.tsx
 
-src/components/[entity]/detail/{location}Hero.tsx
+ - src/components/[entity]/detail/{location}Hero.tsx
 
-src/components/progress/{locations}ToReviewCard.tsx
+ - src/components/progress/{locations}ToReviewCard.tsx
 
 (Note: Depending on your exact scaffolding, double-check your import paths after renaming if your IDE doesn't auto-update them.)
 
