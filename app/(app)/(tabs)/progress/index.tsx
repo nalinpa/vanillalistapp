@@ -73,7 +73,7 @@ function AuthedProgress() {
 
   const totals = useMemo(() => {
     const total = __locations__.length;
-    const completed = __locations__.filter((c) => my.completedLocationIds.has(c.id)).length;
+    const completed = __locations__.filter((c) => my.completed__Location__Ids.has(c.id)).length;
     const percent = total === 0 ? 0 : completed / total;
     return { total, completed, percent };
   }, [__locations__, my.completed__Location__Ids]);
@@ -117,7 +117,7 @@ function AuthedProgress() {
           completed={totals.completed}
           total={totals.total}
           percent={totals.percent}
-          reviewCount={myReviews.reviewedLocationIds.size}
+          reviewCount={myReviews.reviewed__Location__Ids.size}
           shareCount={my.shareBonusCount || 0}
           allDone={totals.completed >= totals.total && totals.total > 0}
           onOpenBadges={goBadges}
