@@ -93,7 +93,7 @@ export const BADGES: BadgeDefinition[] = [
   {
     id: "first_type_b",
     name: "First Type B",
-    unlockText: "Visit your first Type B location.",
+    unlockText: "Visit your first Type B __location__.",
     section: "Types",
     icon: "💠",
   },
@@ -283,7 +283,7 @@ function nthTime(sortedTimesAsc: number[], n: number): number | null {
 }
 
 function maxTimeForAllRequired(
-  required__Locations___: __Location__Meta[],
+  required__Locations__: __Location__Meta[],
   hasIds: Set<string>,
   atById?: Record<string, number>,
 ): number | null {
@@ -328,7 +328,7 @@ export function getBadgeState(
   const active__Locations__ = __locations__.filter((c) => c.active);
 
   const totalAll = active__Locations__.length;
-  const doneAll = countCompleted(active__Locations__, completedLocationIds);
+  const doneAll = countCompleted(active__Locations__, completed__Location__Ids);
 
   const totalTypeA = filterTotal(active__Locations__, (c) => c.category === "type_a").length;
   const doneTypeA = countCompletedWhere(
@@ -372,7 +372,7 @@ export function getBadgeState(
       completed__Location__Ids,
       (c) => c.region === "central",
     ),
-    east: countCompletedWhere(active__Locations__, completedLocationIds, (c) => c.region === "east"),
+    east: countCompletedWhere(active__Locations__, completed__Location__Ids, (c) => c.region === "east"),
     south: countCompletedWhere(
       active__Locations__,
       completed__Location__Ids,
@@ -588,7 +588,7 @@ export function getBadgeState(
     completedAtBy__Location__Id,
     (c) => c.category === "type_c",
   );
-  const reviewTimes = timesForReviewed(active__Locations__, reviewedLocationIds, reviewedAtByLocationId);
+  const reviewTimes = timesForReviewed(active__Locations__, reviewed__Location__Ids, reviewedAtBy__Location__Id);
 
   const unlockAtByBadgeId: Record<string, number | null> = Object.create(null);
 

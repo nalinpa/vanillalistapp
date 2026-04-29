@@ -18,15 +18,15 @@ type BadgesData = {
   loading: boolean;
   err: string;
   __entities__Meta: __ENTITY__Meta[];
-  completedEntityIds: Set<string>;
+  completed__Entity__Ids: Set<string>;
   shareBonusCount: number;
-  sharedEntityIds: Set<string>;
-  completedAtByEntityId: Record<string, number>;
-  reviewedEntityIds: Set<string>;
+  shared__Entity__Ids: Set<string>;
+  completedAtBy__Entity__Id: Record<string, number>;
+  reviewed__Entity__Ids: Set<string>;
   reviewCount: number;
-  reviewedAtByEntityId: Record<string, number>;
+  reviewedAtBy__Entity__Id: Record<string, number>;
   __entities__: __ENTITY__[];
-  uncompletedEntities: __ENTITY__[];
+  uncompleted__Entities__: __ENTITY__[];
   badgeState: {
     earnedIds: Set<string>;
     progressById: Record<string, BadgeProgress>;
@@ -51,14 +51,14 @@ export function useBadgesData(): BadgesData {
     err: __entities__Err 
   } = __ENTITY_PLURAL_LOWER__Data;
 
-  const completedEntityIds = my.completedEntityIds;
+  const completed__Entity__Ids = my.completed__Entity__Ids;
   const shareBonusCount = my.shareBonusCount;
-  const sharedEntityIds = my.sharedEntityIds;
-  const completedAtByEntityId = my.completedAtByEntityId;
+  const shared__Entity__Ids = my.shared__Entity__Ids;
+  const completedAtBy__Entity__Id = my.completedAtBy__Entity__Id;
 
-  const reviewedEntityIds = reviews.reviewedEntityIds;
+  const reviewed__Entity__Ids = reviews.reviewed__Entity__Ids;
   const reviewCount = reviews.reviewCount;
-  const reviewedAtByEntityId = reviews.reviewedAtByEntityId;
+  const reviewedAtBy__Entity__Id = reviews.reviewedAtBy__Entity__Id;
 
   const mergedErr = useMemo(() => {
     return __entities__Err || my.err || reviews.err;
@@ -67,7 +67,7 @@ export function useBadgesData(): BadgesData {
   const loading = __entities__Loading || my.loading || reviews.loading;
 
   const __entities__Meta: __ENTITY__Meta[] = useMemo(() => {
-    return __entities__.map((e) => ({
+    return (__entities__ || [])..map((e) => ({
       id: e.id,
       active: e.active,
       category: e.category,
@@ -75,31 +75,31 @@ export function useBadgesData(): BadgesData {
     }));
   }, [__entities__]);
 
-  const uncompletedEntities = useMemo(() => {
-    if (!completedEntityIds.size) return __entities__;
-    return __entities__.filter((e) => !completedEntityIds.has(e.id));
-  }, [__entities__, completedEntityIds]);
+  const uncompleted__Entities__ = useMemo(() => {
+    if (!completed__Entity__Ids.size) return __entities__;
+    return __entities__.filter((e) => !completed__Entity__Ids.has(e.id));
+  }, [__entities__, completed__Entity__Ids]);
 
   const badgeState = useMemo(() => {
     return getBadgeState(BADGES, {
       __entities__: __entities__Meta,
-      completedEntityIds,
+      completed__Entity__Ids,
       shareBonusCount,
-      sharedEntityIds,
-      completedAtByEntityId,
-      reviewedEntityIds,
+      shared__Entity__Ids,
+      completedAtBy__Entity__Id,
+      reviewed__Entity__Ids,
       reviewCount,
-      reviewedAtByEntityId,
+      reviewedAtBy__Entity__Id,
     });
   }, [
     __entities__Meta,
-    completedEntityIds,
+    completed__Entity__Ids,
     shareBonusCount,
-    sharedEntityIds,
-    completedAtByEntityId,
-    reviewedEntityIds,
+    shared__Entity__Ids,
+    completedAtBy__Entity__Id,
+    reviewed__Entity__Ids,
     reviewCount,
-    reviewedAtByEntityId,
+    reviewedAtBy__Entity__Id,
   ]);
 
   const badgeTotals = useMemo(() => {
@@ -127,14 +127,14 @@ export function useBadgesData(): BadgesData {
     err: mergedErr,
     __entities__,
     __entities__Meta,
-    uncompletedEntities,
-    completedEntityIds,
+    uncompleted__Entities__,
+    completed__Entity__Ids,
     shareBonusCount,
-    sharedEntityIds,
-    completedAtByEntityId,
-    reviewedEntityIds,
+    shared__Entity__Ids,
+    completedAtBy__Entity__Id,
+    reviewed__Entity__Ids,
     reviewCount,
-    reviewedAtByEntityId,
+    reviewedAtBy__Entity__Id,
     badgeState,
     badgeTotals,
     badgeItems,

@@ -14,7 +14,7 @@ import { AppButton } from "../ui/AppButton";
 
 import { useAuthUser } from "@/lib/hooks/useAuthUser";
 import { useLocationStore } from "@/lib/store/index";
-import { useLocationData } from "@/lib/hooks/useLocationData";
+import { use__Location__Data } from "@/lib/hooks/use__Location__Data";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
 import { use__Location__CompletionMutation } from "@/lib/hooks/use__Location__CompletionMutation";
 
