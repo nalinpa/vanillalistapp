@@ -1,96 +1,125 @@
 # 📍 Expo + Firebase Gamification Boilerplate
 
-A robust, location-based React Native mobile app boilerplate built with Expo. This template includes a fully generic gamification engine (badges, achievements, location checkpoints), offline-first data synchronization, and Firebase backend integration.
+A robust, location-based React Native mobile app boilerplate built with Expo. This template includes a fully generic gamification engine (badges, achievements, database checkpoints), offline-first data synchronization, and Firebase backend integration.
 
 ## 🛠 Tech Stack
 * **Framework:** [React Native](https://reactnative.dev/) / [Expo](https://expo.dev/) (Expo Router)
 * **Backend:** [Firebase](https://firebase.google.com/) (Auth, Firestore)
 * **State Management:** [Zustand](https://github.com/pmndrs/zustand) (with AsyncStorage persistence)
-* **UI/Theming:** [UI Kitten](https://akveo.github.io/react-native-ui-kitten/) / Custom Design System
 * **Maps & Location:** `react-native-maps`, `expo-location`, `geolib`
 * **Error Tracking:** [Sentry](https://sentry.io/)
 
 ## ✨ Core Features
-* **Location & Checkpoint Tracking:** Geofencing logic to track distance and verify when a user reaches a specific location/checkpoint.
+* **Location & Checkpoint Tracking:** Geofencing logic to track distance and verify when a user reaches a specific coordinate.
 * **Offline-First Sync Engine:** A robust Zustand-powered background queue that saves user completions locally and syncs to Firestore when the network returns.
-* **Gamification & Badges:** A fully generic achievement system calculating progress across regions, categories, and sharing milestones.
+* **Gamification & Badges:** A fully generic achievement system calculating progress across regions and categories.
 * **Authentication:** Built-in Firebase Email/Password auth and account deletion flows.
-* **Generic Data Models:** Ready-to-use models for Locations, Reviews, Categories, and User Profiles.
-* **Cross-Platform Routing:** Turn-by-turn navigation fallback to Google Maps/Apple Maps natively.
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Prerequisites
-Make sure you have the following installed:
-* [Node.js](https://nodejs.org/) (v18+ recommended)
-* [Expo CLI](https://docs.expo.dev/get-started/installation/) (`npm install -g eas-cli`)
-* A Firebase Project (Web App + iOS/Android Apps configured)
+Follow these steps to instantiate a new app from this boilerplate.
 
-### 2. Installation
-Clone your boilerplate repository and install dependencies:
+### 1. Clone & Install
+Clone the boilerplate into a new folder and install the dependencies.
 
 ```bash
-# Clone the repository
-git clone [https://github.com/YourUsername/your-app-repo-name.git](https://github.com/YourUsername/your-app-repo-name.git)
-
-# Navigate into the project directory
-cd your-app-repo-name
-
-# Install dependencies
+git clone [https://github.com/nalinpa/vanillalistapp.git](https://github.com/nalinpa/vanillalistapp.git) ./mobile
+cd mobile
 npm install
-3. Environment Variables
-Create a .env file in the root directory. You will need your Firebase project keys and Sentry DSN.
+2. Run the Scaffolding
+The boilerplate uses a generic "Location" entity. Use the scaffolding script to re-brand the app and rename the core entities to fit your project.
+
+Open scaffold.js.
+
+Update the REPLACEMENTS object with your specific App Name, Tagline, Colors, and Entity names (Singular and Plural).
+
+Run the script:
+
+Bash
+node scaffold.js
+3. Post-Scaffold Cleanup (Manual Renaming)
+While the script updates code content, you must manually rename the following specific files and folders to match your new entity name (replacing {location} or {locations} with your new term).
+
+Rename Folders:
+
+src/components/location/ -> src/components/[entity]/
+
+Rename Files:
+
+src/lib/hooks/usePublic{locations}Reviews.ts
+
+src/lib/hooks/use{locations}ReviewsSummary.ts
+
+src/lib/hooks/useSorted{locations}Rows.ts
+
+src/lib/hooks/use{locations}.ts
+
+src/lib/hooks/use{location}CompletionMutation.ts
+
+src/components/map/{locations}MapView.tsx
+
+src/components/map/{location}Marker.tsx
+
+src/components/[entity]/list/{location}ListView.tsx
+
+src/components/[entity]/list/{location}ListHeader.tsx
+
+src/components/[entity]/list/{location}FiltersCard.tsx
+
+src/components/[entity]/detail/{location}Hero.tsx
+
+src/components/progress/{locations}ToReviewCard.tsx
+
+(Note: Depending on your exact scaffolding, double-check your import paths after renaming if your IDE doesn't auto-update them.)
+
+4. Firebase Configuration
+Create a .env file in the root directory with your Firebase project keys:
 
 Code snippet
-# Firebase Configuration
 EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key_here
 EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
 EXPO_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
 EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
 EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
+Next, configure the native Android connection:  
 
-# Sentry Configuration
-EXPO_PUBLIC_SENTRY_DSN=your_sentry_dsn_url
-4. Native Configuration (Google Services)
-To build natively or use native Firebase modules, place your configuration files in the root directory:
+Go to the Firebase Console -> Project Overview -> Add App -> Android.  
 
-iOS: Download GoogleService-Info.plist from Firebase and place it in the root.
+Set the Android package name to exactly match the one in your app.json / app.config.ts.  
 
-Android: Download google-services.json from Firebase and place it in the root.
+Register the app and download the google-services.json file.
 
-5. Running the App
-Start the Expo development server:
+5. Expo EAS Configuration
+Because we are building in the cloud with Expo Application Services (EAS), we need to securely provide the Firebase JSON file to the build server.
 
-Bash
-npx expo start
-Press i to open in iOS Simulator.
+Go to your project dashboard on expo.dev.
 
-Press a to open in Android Emulator.
+Navigate to Secrets.
 
-Scan the QR code with the Expo Go app to test on a physical device.
+Add a new File secret.
 
-📂 Project Structure
-Plaintext
-├── app/                 # Expo Router file-based routing (screens and tabs)
-├── assets/              # App icons, splash screens, and static images
-├── src/
-│   ├── components/      # Reusable UI components (Cards, Modals, Buttons)
-│   ├── lib/             # Constants, Theme configs, utilities (geolib, Sentry)
-│   ├── models/          # TypeScript types and interfaces
-│   ├── services/        # Firebase API calls (Auth, Firestore reads/writes)
-│   └── store/           # Zustand state slices (Location, User, Sync Queue)
-├── app.config.ts        # Dynamic Expo configuration
-├── app.json             # Static Expo app configuration
-└── package.json
-🏗 Building for Production
-This project is pre-configured for Expo Application Services (EAS). Update your EAS Project ID in app.config.ts and app.json, then run:
+Name the secret exactly GOOGLE_SERVICES_JSON.
+
+Upload the google-services.json file you downloaded from Firebase.
+
+6. Initialize New Git Repository
+Disconnect from the boilerplate repository and push to your own new project.
 
 Bash
-# Build for iOS
-eas build --platform ios
+git remote remove origin
+git remote add origin [https://github.com/yourusername/YOUR_NEW_REPO_NAME.git](https://github.com/yourusername/YOUR_NEW_REPO_NAME.git)
+git add .
+git commit -m "Initial commit: App scaffolded and configured"
+git push -u origin main
+7. Build and Run
+Kick off your first development build using EAS. This will generate a custom Dev Client .apk that includes all your native Firebase configuration.
 
-# Build for Android
-eas build --platform android
+Bash
+eas build --profile development --platform android
+Once the build is complete, download and install the .apk on your emulator or physical device. Finally, start your local development server:
+
+Bash
+npx expo start --dev-client
