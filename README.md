@@ -28,7 +28,9 @@ Clone the boilerplate into a new folder and install the dependencies.
 git clone [https://github.com/nalinpa/vanillalistapp.git](https://github.com/nalinpa/vanillalistapp.git) ./mobile
 cd mobile
 npm install
-2. Run the Scaffolding
+```
+
+### 2. Run the Scaffolding
 The boilerplate uses a generic "Location" entity. Use the scaffolding script to re-brand the app and rename the core entities to fit your project.
 
 Open scaffold.js.
@@ -37,9 +39,11 @@ Update the REPLACEMENTS object with your specific App Name, Tagline, Colors, and
 
 Run the script:
 
-Bash
+```Bash
 node scaffold.js
-3. Post-Scaffold Cleanup (Manual Renaming)
+```
+
+### 3. Post-Scaffold Cleanup (Manual Renaming)
 While the script updates code content, you must manually rename the following specific files and folders to match your new entity name (replacing {location} or {locations} with your new term).
 
 Rename Folders:
@@ -74,7 +78,7 @@ src/components/progress/{locations}ToReviewCard.tsx
 
 (Note: Depending on your exact scaffolding, double-check your import paths after renaming if your IDE doesn't auto-update them.)
 
-4. Firebase Configuration
+### 4. Firebase Configuration
 Create a .env file in the root directory with your Firebase project keys:
 
 Code snippet
@@ -92,7 +96,7 @@ Set the Android package name to exactly match the one in your app.json / app.con
 
 Register the app and download the google-services.json file.
 
-5. Expo EAS Configuration
+### 5. Expo EAS Configuration
 Because we are building in the cloud with Expo Application Services (EAS), we need to securely provide the Firebase JSON file to the build server.
 
 Go to your project dashboard on expo.dev.
@@ -105,21 +109,26 @@ Name the secret exactly GOOGLE_SERVICES_JSON.
 
 Upload the google-services.json file you downloaded from Firebase.
 
-6. Initialize New Git Repository
+### 6. Initialize New Git Repository
 Disconnect from the boilerplate repository and push to your own new project.
 
-Bash
+```Bash
 git remote remove origin
 git remote add origin [https://github.com/yourusername/YOUR_NEW_REPO_NAME.git](https://github.com/yourusername/YOUR_NEW_REPO_NAME.git)
 git add .
 git commit -m "Initial commit: App scaffolded and configured"
 git push -u origin main
-7. Build and Run
+```
+
+### 7. Build and Run
 Kick off your first development build using EAS. This will generate a custom Dev Client .apk that includes all your native Firebase configuration.
 
-Bash
+```Bash
 eas build --profile development --platform android
+```
+
 Once the build is complete, download and install the .apk on your emulator or physical device. Finally, start your local development server:
 
-Bash
+```Bash
 npx expo start --dev-client
+```
