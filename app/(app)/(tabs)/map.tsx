@@ -75,10 +75,10 @@ export default function MapScreen() {
   }, [__locations__]);
 
   const selected__Location__ = useMemo(() => {
-    return __locations__.find((c) => c.id === selectedLocationId) ?? null;
-  }, [__locations__, selectedLocationId]);
+    return __locations__.find((c) => c.id === selected__Location__Id) ?? null;
+  }, [__locations__, selected__Location__Id]);
 
-  const gate = useGPSGate(selectedLocation, loc);
+  const gate = useGPSGate(selected__Location__, loc);
 
   const lat = loc?.coords.latitude;
   const lng = loc?.coords.longitude;
@@ -148,7 +148,7 @@ export default function MapScreen() {
             id={active__Location__.id}
             title={active__Location__.name}
             distanceMeters={overlayDistance ?? 0}
-            onOpen={() => goLocation(activeLocation.id)}
+            onOpen={() => go__Location__(active__Location__.id)}
             locStatus={locStatus}
             hasLoc={!!loc}
             userLocation={userLocation}
