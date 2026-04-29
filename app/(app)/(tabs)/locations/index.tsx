@@ -16,7 +16,7 @@ import { useLocationStore, useFiltersStore } from "@/lib/store/index";
 import { useAppData } from "@/lib/providers/DataProvider";
 
 import { __Locations__ListView } from "@/components/__location__/list/__Locations__ListView";
-import { ____Location__s__ListHeader } from "@/components/__location__/list/__Location__ListHeader";
+import { __Locations__ListHeader } from "@/components/__location__/list/__Location__ListHeader";
 import { __Location__FiltersCard } from "@/components/__location__/list/__Location__FiltersCard";
 
 export default function __Location__ListPage() {
