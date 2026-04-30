@@ -16,7 +16,7 @@ import { SignalMeter } from "./SignalMeter";
 
 import { formatDistanceMeters } from "../../lib/formatters";
 import { useTrackingStore } from "../../lib/store";
-import { useLocationData } from "@/lib/hooks/useLocationData";
+import { use__Location__ } from "@/lib/hooks/use__Location__";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
 import { LocationObject } from "expo-location";
 import { getDirections } from "@/lib/utils/navigation";
@@ -61,7 +61,7 @@ export function MapOverlayCard({
   const isTargetingThis = isTracking && targetId === id;
 
   const { __location__ } = use__Location__(id);
-  const gate = useGPSGate(locationData, userLocation);
+  const gate = useGPSGate(__location__, userLocation);
 
   const effectiveDistance = gate.distanceMeters ?? distanceMeters;
 
@@ -99,8 +99,8 @@ export function MapOverlayCard({
   };
 
   const handleGetDirections = () => {
-    if (__location__Data?.lat && __location__Data?.lng) {
-      getDirections(__location__Data.lat, __location__Data.lng, __location__Data.name);
+    if (__location__?.lat && __location__?.lng) {
+      getDirections(__location__.lat, __location__.lng, __location__.name);
     }
   };
 
