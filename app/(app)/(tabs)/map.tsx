@@ -151,7 +151,7 @@ export default function MapScreen() {
             onOpen={() => go__Location__(active__Location__.id)}
             locStatus={locStatus}
             hasLoc={!!loc}
-            userLocation={userLocation}
+            user__Location__={user__Location__}
             refreshingGPS={isRefreshing}
             completed={completedIds.has(active__Location__.id)}
           />
