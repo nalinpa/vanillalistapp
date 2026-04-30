@@ -13,14 +13,14 @@ import { SignalMeter } from "../../map/SignalMeter";
 
 import { useTrackingStore } from "../../../lib/store";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
-import { useLocation } from "@/lib/hooks/useLocation";
+import { use__Location__ } from "@/lib/hooks/use__Location__";
 
 interface StatusCardProps {
   __location__Id: string;
   title: string;
   completed: boolean;
   onCheckIn: () => void;
-  loc: __Location__Object | null;
+  loc: LocationObject | null;
 }
 
 export function StatusCard({
