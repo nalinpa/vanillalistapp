@@ -8,15 +8,15 @@ import { Pill } from "@/components/ui/Pill";
 import { Row } from "@/components/ui/Row";
 import { Stack } from "@/components/ui/Stack";
 import { AppIcon } from "@/components/ui/AppIcon";
-import type { __Location__Data } from "@/lib/models";
+import type { __Location__ } from "@/lib/models";
 
 function prettyLabel(s: string) {
   return s?.length ? s[0].toUpperCase() + s.slice(1) : s;
 }
 
-export function __Location__Hero({ __location__Data, completed }: { __location__Data: __Location__Data; completed: boolean }) {
-  const metaLabel = `${prettyLabel(__location__Data.region)} • ${prettyLabel(__location__Data.category)}`;
-  const desc = __location__Data.description?.trim();
+export function __Location__Hero({ __location__, completed }: { __location__: __Location__; completed: boolean }) {
+  const metaLabel = `${prettyLabel(__location__.region)} • ${prettyLabel(__location__.category)}`;
+  const desc = __location__.description?.trim();
 
   return (
     <View style={[styles.container, completed && styles.completedBg]}>
@@ -45,7 +45,7 @@ export function __Location__Hero({ __location__Data, completed }: { __location__
 
         {/* 2. Title */}
         <AppText variant="screenTitle" style={styles.titleText}>
-          {__location__Data.name}
+          {__location__.name}
         </AppText>
 
         {/* 3. Description */}
