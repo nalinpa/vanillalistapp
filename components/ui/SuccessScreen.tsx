@@ -14,7 +14,7 @@ import { AppButton } from "../ui/AppButton";
 
 import { useAuthUser } from "@/lib/hooks/useAuthUser";
 import { useLocationStore } from "@/lib/store/index";
-import { use__Location__Data } from "@/lib/hooks/use__Location__Data";
+import { use__Location__ } from "@/lib/hooks/use__Location__";
 import { useGPSGate } from "@/lib/hooks/useGPSGate";
 import { use__Location__CompletionMutation } from "@/lib/hooks/use__Location__CompletionMutation";
 
@@ -30,12 +30,12 @@ export function SuccessScreen({ __location__Id, onClose, onShare }: SuccessScree
   const { user } = useAuthUser();
   const location = useLocationStore((s) => s.location);
 
-  const { __location__Data, loading: __location__Loading, err: __location__Error } = use__Location__(__location__Id);
-  const gate = useGPSGate(__location__Data, location);
+  const { __location__, loading: __location__Loading, err: __location__Error } = use__Location__(__location__Id);
+  const gate = useGPSGate(__location__, location);
   const { complete__Location__, loading: saving } = use__Location__CompletionMutation();
 
   useEffect(() => {
-    const isReadyToTrigger = user && __location__Data && location;
+    const isReadyToTrigger = user && __location__ && location;
 
     // Check if we haven't triggered THIS specific __location__ yet
     if (isReadyToTrigger && triggered__Location__Id !== __location__Id) {
@@ -45,7 +45,7 @@ export function SuccessScreen({ __location__Id, onClose, onShare }: SuccessScree
 
       complete__Location__({
         uid: user.uid,
-        __location__Data: __location__Data,
+        __location__: __location__,
         loc: location,
         gate: gate,
       }).then((res) => {
@@ -54,9 +54,9 @@ export function SuccessScreen({ __location__Id, onClose, onShare }: SuccessScree
         }
       });
     }
-  }, [user, __location__Data, location, triggered__Location__Id, __location__Id, gate, complete__Location__]);
+  }, [user, __location__, location, triggered__Location__Id, __location__Id, gate, complete__Location__]);
 
-  if (__location__Loading || !__location__Data) {
+  if (__location__Loading || !__location__) {
     return (
       <View style={styles.container}>
         <ActivityIndicator color="#FFFFFF" size="large" />
@@ -94,7 +94,7 @@ export function SuccessScreen({ __location__Id, onClose, onShare }: SuccessScree
 
           <Stack align="center" gap="xs">
             <AppText variant="h3" style={styles.title}>
-              {__location__Data.name}
+              {__location__.name}
             </AppText>
             <AppText variant="label" style={styles.subtitle}>
               YOU MADE IT!
