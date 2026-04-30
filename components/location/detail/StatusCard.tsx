@@ -39,8 +39,8 @@ export function StatusCard({
   const isTargetingThis = isTracking && !!targetId && targetId === __location__Id;
   const isTrackingSomethingElse = isTracking && targetId !== __location__Id;
 
-  const { __location__Data } = use__Location__Data(__location__Id);
-  const gate = useGPSGate(__location__Data, loc);
+  const { __location__ } = use__Location__(__location__Id);
+  const gate = useGPSGate(__location__, loc);
 
   const animatedButtonStyle = {
     opacity: isTrackingSomethingElse ? 0.8 : 1,
