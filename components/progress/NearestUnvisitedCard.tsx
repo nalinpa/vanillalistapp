@@ -12,9 +12,9 @@ import { AppText } from "@/components/ui/AppText";
 import { AppIcon } from "@/components/ui/AppIcon";
 import { AppButton } from "@/components/ui/AppButton";
 
-export function NearestUnvisitedCard({ __location__Data, distanceMeters, locErr, onOpen__Location__ }: any) {
+export function NearestUnvisitedCard({ __location__, distanceMeters, locErr, onOpen__Location__ }: any) {
   // --- SEARCHING / ERROR STATE ---
-  if (!__location__Data) {
+  if (!__location__) {
     return (
       <CardShell status="basic">
         <Row gap="sm" align="center">
@@ -44,7 +44,7 @@ export function NearestUnvisitedCard({ __location__Data, distanceMeters, locErr,
 
   // --- FOUND STATE ---
   return (
-    <CardShell status="surf" onPress={() => onOpen__Location__(__location__Data.id)} style={styles.card}>
+    <CardShell status="surf" onPress={() => onOpen__Location__(__location__.id)} style={styles.card}>
       <Stack gap="md">
         <Row justify="space-between" align="center">
           <Row gap="xs" align="center">
@@ -60,14 +60,14 @@ export function NearestUnvisitedCard({ __location__Data, distanceMeters, locErr,
 
         <Stack gap="xs">
           <AppText variant="sectionTitle" style={styles.__location__Name}>
-            {locationData.name}
+            {__location__.name}
           </AppText>
           <AppText variant="body" numberOfLines={2} style={styles.description}>
-            {__location__Data.description || "A unique __ENTITY_SINGULAR__ waiting to be explored."}
+            {__location__.description || "A unique __ENTITY_SINGULAR__ waiting to be explored."}
           </AppText>
         </Stack>
 
-        <AppButton variant="primary" size="sm" onPress={() => onOpen__Location__(__location__Data.id)}>
+        <AppButton variant="primary" size="sm" onPress={() => onOpen__Location__(__location__.id)}>
           <AppText variant="h3" style={styles.buttonText}>
             View Details
           </AppText>
